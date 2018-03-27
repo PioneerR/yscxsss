@@ -6,6 +6,7 @@ public class Category {
 	private String categoryName;
 	private String describe;
 	private int level;
+	
 	public int getCategoryId() {
 		return categoryId;
 	}

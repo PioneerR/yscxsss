@@ -18,8 +18,8 @@ public class MyBatisUtil {
 	
 	static{
 		try {
-			InputStream is=Resources.class.getResourceAsStream("mybatis-config.xml");
-			factory=new SqlSessionFactoryBuilder().build(is);			
+			InputStream is=Resources.getResourceAsStream("mybatis-config.xml");
+			factory=new SqlSessionFactoryBuilder().build(is);
 		} catch (Exception e) {
 			log.error(e);
 		}
@@ -40,5 +40,11 @@ public class MyBatisUtil {
 			threadLocal.remove();			
 		}
 	}
+	
+//  每次创建MybatisUtil都测试一下是否连接成功
+//	public static void main(String[] args) {		
+//		Connection conn=MyBatisUtil.createSqlSession().getConnection();
+//		System.out.println(conn==null?"连接失败":"连接成功");		
+//	}
 	
 }
