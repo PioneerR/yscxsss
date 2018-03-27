@@ -5,9 +5,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+
 
 <!DOCTYPE HTML>
 <html>
@@ -22,15 +20,16 @@
     <%
     	CategoryService css=new CategoryServiceImpl();
     	List<Category> cs=css.getAllCategories();
-    	for(Category c:cs){
-    		out.println(c.getCategoryId()+"------"+c.getCategoryName());
-    	}
-    	
+    	request.setAttribute("cs", cs);
     %>   
+    
+    <c:if test="${not empty requestScope.cs}">
+    	<c:forEach var="category" items="${cs}">
+    		<c:out value="${category.categoryId}"></c:out><br>
+    	</c:forEach>
+    </c:if>
+    
      
-    
-    
-    
     
     
   </body>
