@@ -10,7 +10,8 @@ public class User {
 	private String address;
 	private String password;
 	private String phone;
-	private Date rdate;
+	//对应字段rdate
+	private Date registerDate;
 	private String email;
 	private String qq;
 	

@@ -1,19 +1,34 @@
 package com.yscxsss.product.entity;
 
+
+import com.yscxsss.category.entity.Category;
+
 import java.util.Date;
 
 public class Product {
-
 
 	private int productId;
 	private String productName;
 	private String describe;
 	private double normalPrice;
 	private double memberPrice;
-	private Date pdate;
+	private Date productDate;
 	private int categoryId;
+	private Category category;
 	
 	
+	public Date getProductDate() {
+		return productDate;
+	}
+	public void setProductDate(Date productDate) {
+		this.productDate = productDate;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public int getProductId() {
 		return productId;
 	}
@@ -43,12 +58,6 @@ public class Product {
 	}
 	public void setMemberPrice(double memberPrice) {
 		this.memberPrice = memberPrice;
-	}
-	public Date getPdate() {
-		return pdate;
-	}
-	public void setPdate(Date pdate) {
-		this.pdate = pdate;
 	}
 	public int getCategoryId() {
 		return categoryId;
