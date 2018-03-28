@@ -1,32 +1,25 @@
-package com.yscxsss.category.service;
+package temp;
 
 import com.yscxsss.category.entity.Category;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface CategoryDao {
+
 	/**
 	 * 增加类别
 	 * @param c
 	 * @return
 	 */
-	public boolean addCategory(Category c);
+	public int addCategory(Category c);
 	
 	/**
 	 * 删除类别
 	 * @param CategoryId
 	 * @return
 	 */
-	public boolean deleteCategoryById(int categoryId);
+	public int deleteCategoryById(int CategoryId);
 	
-	/**
-	 * 
-	 * @param c
-	 * @return
-	 */
-	public boolean updateCategory(Category c);
-	
-
 	/**
 	 * 查询所有类别
 	 * @return
@@ -46,5 +39,8 @@ public interface CategoryService {
 	 * @return
 	 */
 	public List<Category> getCategoriesByLevel(int level);
+	
+
+	
 	
 }

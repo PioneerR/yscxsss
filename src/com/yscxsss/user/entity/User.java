@@ -46,11 +46,11 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Date getRdate() {
-		return rdate;
+	public Date getRegisterDate() {
+		return registerDate;
 	}
-	public void setRdate(Date rdate) {
-		this.rdate = rdate;
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
 	public String getEmail() {
 		return email;

@@ -122,14 +122,13 @@
     	//CategoryService cs=new CategoryServiceImpl();用以下工厂模式，降低耦合性
     	CategoryService cs=CategoryServiceFactory.build();
     	
-    	List<Category> categories=cs.getAllCategories();//---------取出的类别必须是二级的类目，此处需要修改
+    	List<Category> categories=cs.getCategoriesByLevel(2);//---------取出的类别必须是二级的类目，此处需要修改
     	//以下句子极其重要，否则无法取到categories极其长度
     	request.setAttribute("categories", categories);
     	
     	Category c=categories.get(0);
     	Category cg=categories.get(categories.size()-1);
     %>
-    
 
     <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 			<nav style="" class="overfh">

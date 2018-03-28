@@ -1,32 +1,26 @@
-package com.yscxsss.category.service;
+package com.yscxsss.category.dao;
 
 import com.yscxsss.category.entity.Category;
 
 import java.util.List;
 
-public interface CategoryService {
+import org.apache.ibatis.annotations.Param;
+
+public interface CategoryMapper {
 	/**
 	 * 增加类别
 	 * @param c
 	 * @return
 	 */
-	public boolean addCategory(Category c);
+	public int addCategory(@Param("category")Category c);
 	
 	/**
 	 * 删除类别
 	 * @param CategoryId
 	 * @return
 	 */
-	public boolean deleteCategoryById(int categoryId);
+	public int deleteCategoryById(@Param("categoryId")Integer categoryId);
 	
-	/**
-	 * 
-	 * @param c
-	 * @return
-	 */
-	public boolean updateCategory(Category c);
-	
-
 	/**
 	 * 查询所有类别
 	 * @return
@@ -38,13 +32,12 @@ public interface CategoryService {
 	 * @param categoryId
 	 * @return
 	 */
-	public Category getCategoryById(int categoryId);
+	public Category getCategoryById(@Param("categoryId")Integer categoryId);
 	
 	/**
 	 * 根据level查询类别
 	 * @param level
 	 * @return
 	 */
-	public List<Category> getCategoriesByLevel(int level);
-	
+	public List<Category> getCategoriesByLevel(@Param("grade")Integer level);
 }

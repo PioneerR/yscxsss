@@ -43,12 +43,6 @@ public class Order {
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public Date getOdate() {
-		return odate;
-	}
-	public void setOdate(Date odate) {
-		this.odate = odate;
-	}
 	public int getStatus() {
 		return status;
 	}
@@ -61,8 +55,12 @@ public class Order {
 	public void setPaySet(int paySet) {
 		this.paySet = paySet;
 	}
-	
-	
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
 	
 	
 }
