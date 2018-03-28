@@ -12,7 +12,7 @@ public interface CategoryMapper {
 	 * @param c
 	 * @return
 	 */
-	public int addCategory(@Param("category")Category c);
+	public int addCategory(Category c);
 	
 	/**
 	 * 删除类别
@@ -20,6 +20,13 @@ public interface CategoryMapper {
 	 * @return
 	 */
 	public int deleteCategoryById(@Param("categoryId")Integer categoryId);
+	
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public int updateCategory(Category c);
 	
 	/**
 	 * 查询所有类别

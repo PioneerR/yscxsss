@@ -129,7 +129,7 @@
     	Category c=categories.get(0);
     	Category cg=categories.get(categories.size()-1);
     %>
-
+	
     <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 			<nav style="" class="overfh">
 				<div class="flol" style="margin-right:20px;margin-left:7%;">

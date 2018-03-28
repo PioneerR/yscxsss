@@ -1,5 +1,5 @@
 package com.yscxsss.user.dao;
 
-public interface UserDao {
+public interface UserMapper {
 
 }

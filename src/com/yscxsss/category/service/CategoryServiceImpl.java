@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-
 public class CategoryServiceImpl implements CategoryService {
 
 	private List<Category> categories=new ArrayList();
@@ -58,10 +57,20 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public boolean updateCategory(Category c) {
-		
-		
-		
-		return false;
+		try {
+			sqlSession=MyBatisUtil.createSqlSession();
+			int sqlNum=sqlSession.getMapper(CategoryMapper.class).updateCategory(c);
+			if(sqlNum>0){
+				flag=true;
+			}
+			sqlSession.commit();
+		} catch (Exception e) {
+			log.error(e);
+			sqlSession.rollback();
+		} finally {
+			MyBatisUtil.closeSqlSession(sqlSession);
+		}
+		return flag;
 	}
 	
 	@Override
@@ -98,12 +107,21 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 		return categories;
 	}
-
+	
 	@Test
 	public void test() {
-	
+		Category c=new Category();
+		c.setDescribe("aa");
+		c.setCategoryName("aa");
+		c.setCategoryId(18);
+		c.setCategoryNo(1111);
+		c.setLevel(2);
+		c.setParentId(1);
+		boolean flag=this.addCategory(c);
+		System.out.println(flag);
+		
 
 	}
-
+	
 
 }
