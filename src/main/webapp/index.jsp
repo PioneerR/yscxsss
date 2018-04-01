@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
 <!DOCTYPE HTML>
 <html>
   <head>    
@@ -117,11 +116,10 @@
     	}
     </script>
   </head>  
-  <body>
-    
+  <body>    
     <%
     	//CategoryService cs=new CategoryServiceImpl();用以下工厂模式，降低耦合性
-    	CategoryService cs=CategoryServiceFactory.build();
+    	CategoryService cs=CategoryServiceFactory.getInstance();
     	
     	List<Category> categories=cs.getCategoriesByLevel(2);//---------取出的类别必须是二级的类目，此处需要修改
     	//以下句子极其重要，否则无法取到categories极其长度

@@ -178,13 +178,12 @@
 	    <artifactId>spring-context-support</artifactId>  
 	    <version>${spring.version}</version>  
 	</dependency>  
-	<dependency>  
+	<dependency>
 	    <groupId>org.springframework</groupId>  
 	    <artifactId>spring-test</artifactId>  
 	    <version>${spring.version}</version>  
 	</dependency>
   </dependencies>
-  
   
   <!-- 构建项目需要的信息 --> 
   <build>
@@ -219,6 +218,4 @@
 	    	</plugin> -->  		
 	</plugins>
   </build>
-  
-
 </project>
