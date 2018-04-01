@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+
 public class CategoryServiceImpl implements CategoryService {
 
 	private List<Category> categories=new ArrayList();
