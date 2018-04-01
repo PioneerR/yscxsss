@@ -13,47 +13,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<sql id="value">
 		<trim suffixOverrides=",">
-			<if test="parentId!=null">
-				#{parentId},
-			</if>
-			<if test="categoryName!=null">
-				#{categoryName},
-			</if>
-			<if test="describe!=null">
-				#{describe},
-			</if>
-			<if test="categoryNo!=null">
-				#{categoryNo},
-			</if>
-			<if test="level!=null">
-				#{level},
-			</if>
-			<if test="0!=null">
-				0,
-			</if>
+			<if test="parentId!=null">#{parentId},</if>
+			<if test="categoryName!=null">#{categoryName},</if>
+			<if test="describe!=null">#{describe},</if>
+			<if test="categoryNo!=null">#{categoryNo},</if>
+			<if test="level!=null">#{level},</if>
+			<if test="0!=null">0,</if>
 		</trim>
 	</sql>
 		
 	<sql id="key">
 		<trim suffixOverrides=",">
-			<if test="parentId!=null">
-				pid,
-			</if>
-			<if test="categoryName!=null">
-				name,
-			</if>
-			<if test="describe!=null">
-				descr,
-			</if>
-			<if test="categoryNo!=null">
-				cno,
-			</if>
-			<if test="level!=null">
-				grade,
-			</if>
-			<if test="0!=null">
-				cid,
-			</if>
+			<if test="parentId!=null">pid,</if>
+			<if test="categoryName!=null">name,</if>
+			<if test="describe!=null">descr,</if>
+			<if test="categoryNo!=null">cno,</if>
+			<if test="level!=null">grade,</if>
+			<if test="0!=null">cid,</if>
 		</trim>
 	</sql>
 	

@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 	
 	List<Category> list=new ArrayList<Category>();
-	@Override
+	
 	public List<Category> getAllCategories() {
 		String sql="category.CategoryMapper.getAllCategories";
 		list=super.selectList(sql);
@@ -23,7 +23,7 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 	private Logger log=Logger.getLogger("console");
 	private SqlSession sqlSession=null;
 	private Object obj=null;
-	@Override
+	
 	public List<Category> getCategoriesByLevel(int level) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
@@ -36,7 +36,7 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 		return list;
 	}
 
-	@Override
+	
 	public int addCategory(Category c) {
 		
 		
@@ -44,7 +44,7 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 		return 0;
 	}
 
-	@Override
+	
 	public int deleteCategoryById(int CategoryId) {
 		
 		
@@ -52,14 +52,13 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 		return 0;
 	}
 
-	@Override
+	
 	public Category getCategoryById(int categoryId) {
 		
 		
 		
 		return null;
 	}
-
 	
 
 }

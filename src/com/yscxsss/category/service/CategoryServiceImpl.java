@@ -19,7 +19,6 @@ public class CategoryServiceImpl implements CategoryService {
 	private SqlSession sqlSession=null;
 	private Object obj=null;
 	
-	@Override
 	public boolean addCategory(Category c) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
@@ -37,7 +36,6 @@ public class CategoryServiceImpl implements CategoryService {
 		return flag;
 	}
 
-	@Override
 	public boolean deleteCategoryById(int categoryId) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
@@ -55,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return flag;
 	}
 	
-	@Override
+
 	public boolean updateCategory(Category c) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
@@ -73,20 +71,20 @@ public class CategoryServiceImpl implements CategoryService {
 		return flag;
 	}
 	
-	@Override
+	
 	public List<Category> getAllCategories() {
 		//TODO 
 
 		return categories;
 	}
 
-	@Override
+	
 	public Category getCategoryById(int categoryId) {
 		Category c=null;
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
 			c=sqlSession.getMapper(CategoryMapper.class).getCategoryById(categoryId);
-			//FIXME 如果c为null，怎么处理？
+			//FIXME 濡傛灉c涓簄ull锛屾�涔堝鐞嗭紵
 		} catch (Exception e) {
 			log.error(e);
 		} finally {
@@ -95,7 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return c;
 	}
 	
-	@Override
+	
 	public List<Category> getCategoriesByLevel(int level) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
