@@ -1,4 +1,4 @@
-package com.yscxsss.user.dao;
+package com.yscxsss.dao.user;
 
 public interface UserMapper {
 

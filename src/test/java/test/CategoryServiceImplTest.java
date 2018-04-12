@@ -1,7 +1,7 @@
 package test;
 
-import com.yscxsss.category.service.CategoryService;
-import com.yscxsss.category.service.CategoryServiceImpl;
+import com.yscxsss.service.category.CategoryService;
+import com.yscxsss.service.category.CategoryServiceImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

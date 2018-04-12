@@ -1,4 +1,4 @@
-package com.yscxsss.product.service;
+package com.yscxsss.service.product;
 
 
 public class ProductServiceFactory {

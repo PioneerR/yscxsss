@@ -1,6 +1,5 @@
-package com.yscxsss.order.entity;
+package com.yscxsss.entity;
 
-import com.yscxsss.product.entity.Product;
 
 public class SalesItem {
 

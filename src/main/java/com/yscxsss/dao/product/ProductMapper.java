@@ -1,4 +1,4 @@
-package com.yscxsss.product.dao;
+package com.yscxsss.dao.product;
 
 public interface ProductMapper {
 

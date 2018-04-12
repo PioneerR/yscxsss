@@ -1,6 +1,6 @@
-package com.yscxsss.category.dao;
+package com.yscxsss.dao.category;
 
-import com.yscxsss.category.entity.Category;
+import com.yscxsss.entity.Category;
 
 import java.util.List;
 

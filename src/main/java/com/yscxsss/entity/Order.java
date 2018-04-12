@@ -1,6 +1,4 @@
-package com.yscxsss.order.entity;
-
-import com.yscxsss.user.entity.User;
+package com.yscxsss.entity;
 
 import java.util.Date;
 import java.util.List;

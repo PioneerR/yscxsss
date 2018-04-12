@@ -1,4 +1,4 @@
-package com.yscxsss.user.entity;
+package com.yscxsss.entity;
 
 import java.util.Date;
 

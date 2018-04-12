@@ -1,4 +1,4 @@
-package com.yscxsss.category.service;
+package com.yscxsss.service.category;
 
 public class CategoryServiceFactory {
 	

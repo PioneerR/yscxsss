@@ -1,4 +1,4 @@
-package com.yscxsss.category.entity;
+package com.yscxsss.entity;
 
 public class Category {
 	//TODO 暂时不知道这两个参数的用途，是否有优化方式

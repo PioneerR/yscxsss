@@ -1,7 +1,5 @@
-package com.yscxsss.product.entity;
+package com.yscxsss.entity;
 
-
-import com.yscxsss.category.entity.Category;
 
 import java.util.Date;
 

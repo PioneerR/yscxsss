@@ -1,6 +1,6 @@
-package com.yscxsss.product.service;
+package com.yscxsss.service.product;
 
-import com.yscxsss.product.entity.Product;
+import com.yscxsss.entity.Product;
 
 import java.util.List;
 

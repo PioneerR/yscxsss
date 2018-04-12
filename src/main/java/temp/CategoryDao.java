@@ -1,6 +1,6 @@
 package temp;
 
-import com.yscxsss.category.entity.Category;
+import com.yscxsss.entity.Category;
 
 import java.util.List;
 

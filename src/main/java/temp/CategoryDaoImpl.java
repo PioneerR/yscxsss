@@ -1,7 +1,7 @@
 package temp;
 
-import com.yscxsss.category.dao.CategoryMapper;
-import com.yscxsss.category.entity.Category;
+import com.yscxsss.dao.category.CategoryMapper;
+import com.yscxsss.entity.Category;
 import com.yscxsss.util.MyBatisUtil;
 
 import java.util.ArrayList;
