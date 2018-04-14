@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
 			c=sqlSession.getMapper(CategoryMapper.class).getCategoryById(categoryId);
-			//FIXME 濡傛灉c涓簄ull锛屾�涔堝鐞嗭紵
+			//FIXME 
 		} catch (Exception e) {
 			log.error(e);
 		} finally {

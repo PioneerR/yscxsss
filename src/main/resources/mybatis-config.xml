@@ -15,11 +15,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 3、为复杂类名设置别名 -->
 	<typeAliases>
-		<typeAlias type="com.yscxsss.category.entity.Category" alias="Category" />
+		<!-- <typeAlias type="com.yscxsss.category.entity.Category" alias="Category" />
 		<typeAlias type="com.yscxsss.product.entity.Product" alias="Product" />
 		<typeAlias type="com.yscxsss.user.entity.User" alias="User" />
 		<typeAlias type="com.yscxsss.order.entity.Order" alias="Order" />
-		<typeAlias type="com.yscxsss.admin.entity.Admin" alias="Admin" />		
+		<typeAlias type="com.yscxsss.admin.entity.Admin" alias="Admin" /> -->	
+		<!-- 用package配置更快 -->
+		<package name="com.yscxsss.entity"/>	
 	</typeAliases>
 	
 	<!-- 4、配置mybatis多套运行环境:开发环境、发布环境等  -->
@@ -40,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 5、将mapper文件引入配置文件中 -->
 	<mappers>
 		<!-- 两种方式皆可<mapper class="com.yscxsss.category.dao.CategoryMapper"/> -->
-		<mapper	resource="com/yscxsss/category/dao/CategoryMapper.xml"/>
+		<mapper	resource="com/yscxsss/dao/category/CategoryMapper.xml"/>
 		
 	</mappers>
 </configuration>
