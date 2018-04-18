@@ -5,39 +5,27 @@ import java.util.Date;
 
 public class Product {
 
-	private int productId;
-	private String productName;
+	private int id;
+	private String name;
 	private String describe;
-	private double normalPrice;
-	private double memberPrice;
-	private Date productDate;
-	private int categoryId;
-	private Category category;
+	private double price;
+	private int parentId;
+	private String fileName;
+	private int isDelete;
+	private Date createTime;
 	
 	
-	public Date getProductDate() {
-		return productDate;
+	public int getId() {
+		return id;
 	}
-	public void setProductDate(Date productDate) {
-		this.productDate = productDate;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public Category getCategory() {
-		return category;
+	public String getName() {
+		return name;
 	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}	
-	public String getProductName() {
-		return productName;
-	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDescribe() {
 		return describe;
@@ -45,29 +33,36 @@ public class Product {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public double getNormalPrice() {
-		return normalPrice;
+	public double getPrice() {
+		return price;
 	}
-	public void setNormalPrice(double normalPrice) {
-		this.normalPrice = normalPrice;
+	public void setPrice(double price) {
+		this.price = price;
 	}
-	public double getMemberPrice() {
-		return memberPrice;
+	public int getParentId() {
+		return parentId;
 	}
-	public void setMemberPrice(double memberPrice) {
-		this.memberPrice = memberPrice;
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
-	public int getCategoryId() {
-		return categoryId;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
-	
-	
-	
-	
-	
+	public int getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	
 	
 }

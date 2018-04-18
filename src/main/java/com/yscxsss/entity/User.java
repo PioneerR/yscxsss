@@ -4,35 +4,35 @@ import java.util.Date;
 
 public class User {
 
-	//定义User的属性
-	private int userId;
+	private int id;
+	private String loginName;
 	private String userName;
-	private String address;
 	private String password;
 	private String phone;
-	//对应字段rdate
-	private Date registerDate;
+	private int sex;
+	private String identityCode;
 	private String email;
-	private String qq;
+	private int type;
+	private Date createTime;
 	
 	//getter setter
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public String getPassword() {
 		return password;
@@ -46,11 +46,17 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Date getRegisterDate() {
-		return registerDate;
+	public int getSex() {
+		return sex;
 	}
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+	public String getIdentityCode() {
+		return identityCode;
+	}
+	public void setIdentityCode(String identityCode) {
+		this.identityCode = identityCode;
 	}
 	public String getEmail() {
 		return email;
@@ -58,13 +64,18 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getQq() {
-		return qq;
+	public int getType() {
+		return type;
 	}
-	public void setQq(String qq) {
-		this.qq = qq;
+	public void setType(int type) {
+		this.type = type;
 	}
-	
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	
 	
 	

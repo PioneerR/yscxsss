@@ -111,9 +111,6 @@ public class CategoryServiceImpl implements CategoryService {
 	public void test() {
 		Category c=new Category();
 		c.setDescribe("aa");
-		c.setCategoryName("aa");
-		c.setCategoryId(18);
-		c.setCategoryNo(1111);
 		c.setLevel(2);
 		c.setParentId(1);
 		boolean flag=this.addCategory(c);

@@ -1,27 +1,37 @@
 package com.yscxsss.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class Order {
 
-	private User user;
-	//TODO 如果用户有多个寄件地址，是否要定义成数组
+	private int id;
+	private int userId;
+	private String loginName;
 	private String address;
-	private List<SalesItem> items;
-	
-	private int orderId;
-	//TODO 对应字段odate,是否考虑重新建一个数据库及表
-	private Date orderDate;
+	private Date createTime;
+	private double cost;
 	private int status;
-	private int paySet;
+	private int payType;
+	private int serialNumber;
 	
 	
-	public User getUser() {
-		return user;
+	public int getId() {
+		return id;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 	public String getAddress() {
 		return address;
@@ -29,17 +39,17 @@ public class Order {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public List<SalesItem> getItems() {
-		return items;
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setItems(List<SalesItem> items) {
-		this.items = items;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
-	public int getOrderId() {
-		return orderId;
+	public double getCost() {
+		return cost;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setCost(double cost) {
+		this.cost = cost;
 	}
 	public int getStatus() {
 		return status;
@@ -47,18 +57,20 @@ public class Order {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getPaySet() {
-		return paySet;
+	public int getPayType() {
+		return payType;
 	}
-	public void setPaySet(int paySet) {
-		this.paySet = paySet;
+	public void setPayType(int payType) {
+		this.payType = payType;
 	}
-	public Date getOrderDate() {
-		return orderDate;
+	public int getSerialNumber() {
+		return serialNumber;
 	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setSerialNumber(int serialNumber) {
+		this.serialNumber = serialNumber;
 	}
+	
+	
 	
 	
 }
