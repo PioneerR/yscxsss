@@ -50,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		update category2
 		<set>
+			<!-- 用and而不是&& -->
 			<if test="categoryName!=null and categoryName!=''">name=#{categoryName},</if>
 			<if test="describe!=null and describe!=''">descr=#{describe},</if>
 		</set>
