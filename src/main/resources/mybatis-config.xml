@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 5、将mapper文件引入配置文件中 -->
 	<mappers>
-		<!-- 两种方式皆可<mapper class="com.yscxsss.category.dao.CategoryMapper"/> -->
-		<mapper	resource="com/yscxsss/dao/category/CategoryMapper.xml"/>
+		<!--两种方式皆可 <mapper resource="com/yscxsss/dao/category/CategoryMapper.xml"/> -->
+		<mapper class="com.yscxsss.category.dao.CategoryMapper"/> 
 		
 	</mappers>
 </configuration>

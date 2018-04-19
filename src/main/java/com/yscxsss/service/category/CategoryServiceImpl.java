@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
 
 	private List<Category> categories=new ArrayList();

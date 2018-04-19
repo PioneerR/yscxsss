@@ -8,43 +8,43 @@ import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {
 	/**
-	 * 增加类别
+	 * 添加类别
 	 * @param c
 	 * @return
 	 */
 	public int addCategory(Category c);
 	
 	/**
-	 * 删除类别
+	 * 根据id删除类别
 	 * @param CategoryId
 	 * @return
 	 */
 	public int deleteCategoryById(@Param("categoryId")Integer categoryId);
 	
 	/**
-	 * 
+	 * 更新类别
 	 * @param c
 	 * @return
 	 */
 	public int updateCategory(Category c);
 	
 	/**
-	 * 查询所有类别
+	 * 获取所有类别的集合
 	 * @return
 	 */
 	public List<Category> getAllCategories();
 	
 	/**
-	 * 根据类别id查询类别
+	 * 通过id获取类别
 	 * @param categoryId
 	 * @return
 	 */
 	public Category getCategoryById(@Param("categoryId")Integer categoryId);
 	
 	/**
-	 * 根据level查询类别
+	 * 通过level获取类别集合
 	 * @param level
 	 * @return
 	 */
-	public List<Category> getCategoriesByLevel(@Param("grade")Integer level);
+	public List<Category> getCategoriesByLevel(@Param("level")Integer level);
 }

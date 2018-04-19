@@ -1,3 +1,7 @@
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="org.springframework.context.support.FileSystemXmlApplicationContext"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@ page import="temp.CategoryServiceFactory"%>
 <%@ page import="com.yscxsss.service.category.CategoryServiceImpl"%>
 <%@ page import="com.yscxsss.service.category.CategoryService"%>
@@ -115,20 +119,32 @@
     	}
     </script>
   </head>  
-  <body>    
+  <body> 
+	  <%
+	  		//ApplicationContext context=new FileSystemXmlApplicationContext("src/main/resources/applicationContext.xml");
+	  		
+	  %>
+
+     
     <%
     	//CategoryService cs=new CategoryServiceImpl();用以下工厂模式，降低耦合性
-    	CategoryService cs=CategoryServiceFactory.getInstance();
+    	//CategoryService cs=CategoryServiceFactory.getInstance();
+    	
+    	ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+    	CategoryService cs=(CategoryService)context.getBean("categoryService");
     	
     	List<Category> categories=cs.getCategoriesByLevel(2);//---------取出的类别必须是二级的类目，此处需要修改
     	//以下句子极其重要，否则无法取到categories极其长度
     	request.setAttribute("categories", categories);
-    	
+		//TODO 非空判断categories不能为null
     	Category c=categories.get(0);
     	Category cg=categories.get(categories.size()-1);
+    	/* for(Category c:categories){
+    		out.print("----"+c.getName());
+    	} */
     %>
 	
-    <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
+     <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 			<nav style="" class="overfh">
 				<div class="flol" style="margin-right:20px;margin-left:7%;">
 					<a href="index.jsp" style="color:white;" class="fontw700">				

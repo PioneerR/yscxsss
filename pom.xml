@@ -202,15 +202,15 @@
           <directory>src/main/resources</directory>          
           <includes>
               <include>log4j.properties</include>
+              <include>applicationContext.xml</include>
           </includes>
-      </resource>
+      </resource>      
     </resources>
     <!-- maven版本要有对应的java版本，若不一致，则会报错 -->
     <plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.1</version>
 			<configuration>
 				<!-- java版本？ -->
 				<source>1.7</source>
