@@ -143,7 +143,7 @@
 						<a href="showProducts.jsp?categoryId=<c:out value='${c.categoryId}'/>">
 							<div class="item backgw borrt5 textc fonts16 colgy" style="line-height:37px;">								
 								<!--<c:out value="${c.categoryName}"/>-->
-								<%= c.getCategoryName() %>
+								<%= c.getName() %>
 							</div>
 						</a>						
 					
@@ -159,7 +159,7 @@
 						<a href="showProducts.jsp?categoryId=<c:out value='${cg.categoryId}'/>" >
 							<div class="item backgw borrb5 textc fonts16 colgy" style="line-height:37px;">
 								<!--<c:out value='${cg.categoryId}'/>-->
-								<%= cg.getCategoryName() %>
+								<%= cg.getName() %>
 							</div>
 						</a>	
 					</div>

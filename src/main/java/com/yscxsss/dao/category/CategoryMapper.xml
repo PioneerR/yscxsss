@@ -5,23 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.yscxsss.category.dao.CategoryMapper">
 	<!-- 1、增加  --> 
-	<!-- FIXME 由于表设计不是特别合适(cid干嘛的)，因此需要重新修改 -->
 	<insert id="addCategory" parameterType="Category" >
 		<!-- insert into category2 (`pid`,`name`,`descr`,`cno`,`grade`,`cid`) 
 		values(#{parentId},#{categoryName},#{describe},#{categoryNo},#{level},0) -->	
-		insert into category2 (<include refid="key" />) values (<include refid="value" />)
+		insert into category (<include refid="key" />) values (<include refid="value" />)
 	</insert>
-	<sql id="value">
-		<trim suffixOverrides=",">
-			<if test="parentId!=null">#{parentId},</if>
-			<if test="categoryName!=null">#{categoryName},</if>
-			<if test="describe!=null">#{describe},</if>
-			<if test="categoryNo!=null">#{categoryNo},</if>
-			<if test="level!=null">#{level},</if>
-			<if test="0!=null">0,</if>
-		</trim>
-	</sql>
-		
 	<sql id="key">
 		<trim suffixOverrides=",">
 			<if test="parentId!=null">pid,</if>
@@ -32,6 +20,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="0!=null">cid,</if>
 		</trim>
 	</sql>
+	<sql id="value">
+		<trim suffixOverrides=",">
+			<if test="parentId!=null">#{parentId},</if>
+			<if test="categoryName!=null">#{categoryName},</if>
+			<if test="describe!=null">#{describe},</if>
+			<if test="level!=null">#{level},</if>
+			<if test="0!=null">0,</if>
+		</trim>
+	</sql>
+	
 	
 	<!-- 2、删除 -->
 	<delete id="deleteCategoryById" parameterType="Integer">

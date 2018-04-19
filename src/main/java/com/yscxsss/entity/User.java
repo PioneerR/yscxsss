@@ -2,6 +2,9 @@ package com.yscxsss.entity;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
 
 	private int id;

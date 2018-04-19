@@ -4,6 +4,9 @@ import com.yscxsss.entity.Product;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ProductServiceImpl implements ProductService {
 
 	@Override

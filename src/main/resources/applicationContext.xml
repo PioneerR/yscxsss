@@ -10,9 +10,14 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">  
   
+  <!-- 1、配置文件方式配置bean -->
   <!-- <bean id="" class="">
   	<property name="" value=""/>
   </bean> -->
+  
+  <!-- 2、注解方式配置bean -->
+  <!--<context:component-scan>会默认激活<context:annotation-config>功能,即可以使用@Resource
+  	  若不配置<context:component-scan>，则需要<context:annotation-config/>才可以使用@Resource-->  	     
   <context:component-scan base-package="com.yscx.*" />
   
 </beans> 

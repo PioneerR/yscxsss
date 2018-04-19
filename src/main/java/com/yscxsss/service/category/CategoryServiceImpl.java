@@ -10,8 +10,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	private List<Category> categories=new ArrayList();
