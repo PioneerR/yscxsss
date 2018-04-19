@@ -1,4 +1,4 @@
-<%@ page import="com.yscxsss.service.category.CategoryServiceFactory"%>
+<%@ page import="temp.CategoryServiceFactory"%>
 <%@ page import="com.yscxsss.service.category.CategoryServiceImpl"%>
 <%@ page import="com.yscxsss.service.category.CategoryService"%>
 <%@ page import="com.yscxsss.entity.Category"%>

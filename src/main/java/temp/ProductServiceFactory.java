@@ -1,4 +1,7 @@
-package com.yscxsss.service.product;
+package temp;
+
+import com.yscxsss.service.product.ProductService;
+import com.yscxsss.service.product.ProductServiceImpl;
 
 
 public class ProductServiceFactory {

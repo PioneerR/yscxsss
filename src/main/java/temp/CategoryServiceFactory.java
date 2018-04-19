@@ -1,4 +1,7 @@
-package com.yscxsss.service.category;
+package temp;
+
+import com.yscxsss.service.category.CategoryService;
+import com.yscxsss.service.category.CategoryServiceImpl;
 
 public class CategoryServiceFactory {
 	
