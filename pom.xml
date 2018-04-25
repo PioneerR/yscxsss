@@ -184,6 +184,12 @@
 	    <artifactId>spring-test</artifactId>  
 	    <version>${spring.version}</version>  
 	</dependency>
+	<!--切片包-->  
+	<dependency>  
+	    <groupId>org.springframework</groupId>  
+	    <artifactId>spring-aspects</artifactId>  
+	    <version>${spring.version}</version>  
+	</dependency> 
   </dependencies>
   
   <!-- 构建项目需要的信息 --> 
