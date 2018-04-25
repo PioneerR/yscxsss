@@ -2,12 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:aop="http://www.springframework.org/schema/aop" 
     xmlns:context="http://www.springframework.org/schema/context"  
     xsi:schemaLocation="
   		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">  
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">  
   
   <!-- 说明：以下配置，统一采用p命名空间进行配置，因为key是自动提示的不容易出错，且简化代码量  -->
   
@@ -68,9 +70,24 @@
   <!--MapperScannerConfigurer将递归扫描包中的所有Mapper接口，如果这些Mapper接口在Mapper.xml中定义过
   	  则动态注册为MapperImpl实例，由此可以批量产生映射器实现类  -->
   <!-- 通过扫描方式生成Mapper接口实现类，且该方法的底层实际上注入了SqlSessionFactory实例 -->
-  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" 
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"   
   		p:sqlSessionFactoryBeanName="sqlSessionFactory"
   		p:basePackage="com.yscxsss.dao.user">
+  	<!-- p:sqlSessionFactoryBeanName="sqlSessionFactory"此句可以不写，安全起见，可以写一下， -->
+  	<!--spring里使用org.mybatis.spring.mapper.MapperScannerConfigurer进行自动扫描的时候,
+	  	设置了sqlSessionFactory的话,可能会导致PropertyPlaceholderConfigurer失效
+	  	也就是用${jdbc.username}这样之类的表达式,将无法获取到properties文件里的内容。 
+	  	导致这一原因是因为,MapperScannerConigurer实际是在解析加载bean定义阶段的,
+	  	这个时候要是设置sqlSessionFactory的话,会导致提前初始化一些类,
+	          这个时候PropertyPlaceholderConfigurer还没来得及替换定义中的变量,
+	          导致把表达式当作字符串复制了。但如果不设置sqlSessionFactory属性的话,
+	          就必须要保证sessionFactory在spring中名称一定要是sqlSessionFactory,否则就无法自动注入。
+	          
+	          解决办法： 改动MapperScannerConfigurer的配置,添加sqlSessionFactoryBeanName进行延迟注入
+	          写了该项的话可以起到延迟注入的效果，这样表达式的值来得及替换
+	          不写该项的话必须保证SqlSessionFactoryBean的名称是sqlSessionFactory -->
+	          		
+  		
   	<!-- 此处的value是dao层的包名，而非类名 -->
   	<!-- <property name="basePackage" value="com.yscxsss.dao.*" /> -->
   </bean>
@@ -81,6 +98,36 @@
   <!-- 2、开启对@AspectJ的支持，否则面向切面的各种注解无法执行 -->
   <aop:aspectj-autoproxy />
   
+  <!-- 3、开启事务注解 -->
+  <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+  
+  
+  <!-- 五、Spring事务管理 -->
+  <!-- 配置DataSourceTransactionManager时，需要注入数据源 -->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+  	p:dataSource-ref="dataSource">  
+  </bean>  
+  <!-- 通过tx:advice配置事务增强，为不同的业务方法指定具体的事务规则 -->
+  <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+  	<tx:attributes>
+  		<!-- 为查询方法设定事务增强,read-only=true提高事务处理性能,read-only默认值false -->
+  		<tx:method name="get*" read-only="true"/>
+  		<!-- 当抛出异常时，进行回滚。配置回滚，需要写异常类全名 -->
+  		<tx:method name="add*" rollback-for="java.lang.Exception"/>
+  		<tx:method name="delete*" rollback-for="java.lang.Exception"/>
+  		<tx:method name="update*" rollback-for="java.lang.Exception"/>
+  		
+  		<!-- 针对所有的方法进行事务增强，propagation默认值为Required -->
+  		<tx:method name="*" propagation="REQUIRED"/>
+  	</tx:attributes>
+  </tx:advice>
+  <!-- 定义事务管理的AOP切面 -->
+  <aop:config>
+  	<!-- 定义切入点 -->
+  	<aop:pointcut id="serviceMethod" expression="execution(* com.yscxsss.service..*.*(..))" />
+  	<!-- 将事务增强与切入点组合 -->
+  	<aop:advisor advice-ref="transactionManager"/>
+  </aop:config>
   
   
 </beans> 

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+	//此处必须添加Autowired，否则报空指针异常
 	@Autowired
 	private UserMapper mapper;
+	
 	@Override
 	public User getUserById(int id) {
 		User u=null;
