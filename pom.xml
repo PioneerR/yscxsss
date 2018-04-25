@@ -190,6 +190,12 @@
 	    <artifactId>spring-aspects</artifactId>  
 	    <version>${spring.version}</version>  
 	</dependency> 
+	<!-- 配置dbcp数据源的包 -->
+    <dependency>  
+	    <groupId>commons-dbcp</groupId>  
+	    <artifactId>commons-dbcp</artifactId>  
+	    <version>1.4</version>  
+	</dependency>
   </dependencies>
   
   <!-- 构建项目需要的信息 --> 
@@ -208,7 +214,9 @@
           <directory>src/main/resources</directory>          
           <includes>
               <include>log4j.properties</include>
-              <include>applicationContext.xml</include>
+              <include>applicationContext-mybatis.xml</include>
+              <include>mybatis-config.xml</include>
+              <include>database.properties</include>
           </includes>
       </resource>      
     </resources>

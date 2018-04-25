@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="com.yscxsss.dao.product.ProductMapper">
 	<!-- 1、增加  -->
 	<insert id="addProduct" parameterType="Product">
 		

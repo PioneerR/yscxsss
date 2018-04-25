@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xsi:schemaLocation="
+  		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">  
+  
+  <!-- 说明：以下配置，统一采用p命名空间进行配置，因为key是自动提示的不容易出错，且简化代码量  -->
+  
+  <!-- 零、引入database.properties -->
+  <context:property-placeholder location="database.properties"/>
+  
+  <!-- 一、Mybatis配置dbcp数据源,此前用的POOLED与JNDI -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+  		destroy-method="close"
+  		p:driverClassName="${jdbc.driver}"
+  		p:url="${jdbc.url}"
+  		p:username="${jdbc.username}"
+  		p:password="${jdbc.password}">
+  	<!-- 1、配置driver驱动 -->
+  	<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+  	<!-- 2、配置url -->
+  	<!-- <property name="url" value="jdbc:mysql://localhost:3306/yscx?useUnicode=true&amp;characterEncoding=utf-8" /> -->
+  	<!-- 3、配置username -->
+  	<!-- <property name="username" value="root" /> -->
+  	<!-- 4、配置password -->
+  	<!-- <property name="password" value="123456"></property> -->
+  </bean>
+  
+  <!-- 二、Mybatis配置SqlSessionFactory对象 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+  	p:dataSource-ref="dataSource"
+  	p:configLocation="classpath:mybatis-config.xml"
+  	p:mapperLocations="classpath:com/yscxsss/dao/user/*.xml"
+  	p:typeAliasesPackage="com.yscxsss.entity">
+  	<!-- 1、引用数据源 -->
+  	<!-- <property name="dataSource" ref="dataSource" /> -->
+  	<!-- 2、引用mybatis配置文件 -->
+  	<!-- <property name="configLocation" value="classpath:mybatis-config.xml" /> -->
+  	<!-- 3、引用Mapper.xml映射文件 -->
+  	<!-- <property name="mapperLocations">
+  		<list>
+  			<value>classpath:com/yscxsss/dao/*/*.xml</value>
+  		</list>
+  	</property> -->
+  	<!-- 4、为所有实体类配置别名 -->
+  	<!-- <property name="typeAliasesPackage" value="com.yscxsss.entity" /> -->
+  </bean>
+  
+  
+  <!-- 三、有了SqlSessionFactory后，需要生成SqlSession或Mapper实现类，这样才能执行sql语句 -->
+  <!-- 逻辑：有了SqlSessionFactory,进而获取SqlSession,进而获取Mapper，进而执行sql语句 -->
+  
+  <!-- 方式一：配置SqlSession，缺点：每个mapper都要一一配置 -->
+  <!-- <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> -->
+  	<!-- 生成Mapper实现类需要注入这个Mapper的接口全名 -->
+  	<!-- <property name="mapperInterface" value="com.yscxsss.dao.user.UserMapper" /> -->
+  	<!-- 生成Mapper实现类后，需要注入sqlSessionFactory，因为这样该Mapper实现类才具备执行sql语句的能力 -->
+  	<!-- 通常想要注入都需要getter\setter方法，不过这里的UserMapper不必写 sqlSessionFactory个getter/setter方法，底层应该已经封装好了-->
+  	<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory" /> -->
+  <!-- </bean> -->  
+  
+  <!-- 方式二：配置Mapper实现类 -->
+  <!--MapperScannerConfigurer将递归扫描包中的所有Mapper接口，如果这些Mapper接口在Mapper.xml中定义过
+  	  则动态注册为MapperImpl实例，由此可以批量产生映射器实现类  -->
+  <!-- 通过扫描方式生成Mapper接口实现类，且该方法的底层实际上注入了SqlSessionFactory实例 -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" 
+  		p:sqlSessionFactoryBeanName="sqlSessionFactory"
+  		p:basePackage="com.yscxsss.dao.user">
+  	<!-- 此处的value是dao层的包名，而非类名 -->
+  	<!-- <property name="basePackage" value="com.yscxsss.dao.*" /> -->
+  </bean>
+  
+  <!-- 四、Spring配置开启扫描 -->
+  <!-- 1、开启扫描<context:annotation-config/> -->
+  <context:component-scan base-package="com.yscxsss.*" />  
+  <!-- 2、开启对@AspectJ的支持，否则面向切面的各种注解无法执行 -->
+  <aop:aspectj-autoproxy />
+  
+  
+  
+</beans> 
