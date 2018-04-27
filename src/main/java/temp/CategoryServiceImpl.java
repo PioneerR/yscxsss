@@ -1,11 +1,13 @@
-package com.yscxsss.service.category;
+package temp;
 
 import com.yscxsss.dao.category.CategoryMapper;
 import com.yscxsss.entity.Category;
+import com.yscxsss.service.category.CategoryService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,34 +18,51 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private List<Category> categories=new ArrayList();
 	boolean flag=false;
-	private Logger log=Logger.getLogger(CategoryServiceImpl.class);	
+	private Logger log=Logger.getLogger(CategoryServiceImpl.class);
+	private SqlSession sqlSession=null;
 	private Object obj=null;
 	
 	@Autowired(required=false)	
 	private CategoryMapper categoryMapper;
 	
 	public boolean addCategory(Category c) {
-		try {			
-			int sqlNum=categoryMapper.addCategory(c);
-			int i=1/0;
+		try {
+			sqlSession=MyBatisUtil.createSqlSession();
+			int sqlNum=sqlSession.getMapper(CategoryMapper.class).addCategory(c);
 			if(sqlNum>0){
 				flag=true;
-			}			
+			}
+			sqlSession.commit();
 		} catch (Exception e) {
 			log.error(e);
-			//throw e;
-		} 
+			sqlSession.rollback();
+		} finally {
+			MyBatisUtil.closeSqlSession(sqlSession);
+		}
 		return flag;
+	}
+
+	public CategoryMapper getCategoryMapper() {
+		return categoryMapper;
+	}
+
+	public void setCategoryMapper(CategoryMapper categoryMapper) {
+		this.categoryMapper = categoryMapper;
 	}
 
 	public boolean deleteCategoryById(int categoryId) {
 		try {
-			int sqlNum=categoryMapper.deleteCategoryById(categoryId);
+			sqlSession=MyBatisUtil.createSqlSession();
+			int sqlNum=sqlSession.getMapper(CategoryMapper.class).deleteCategoryById(categoryId);
 			if(sqlNum>0){
 				flag=true;
-			}		
+			}
+			sqlSession.commit();
 		} catch (Exception e) {
 			log.error(e);
+			sqlSession.rollback();
+		} finally {
+			MyBatisUtil.closeSqlSession(sqlSession);
 		}
 		return flag;
 	}
@@ -51,13 +70,18 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public boolean updateCategory(Category c) {
 		try {
-			int sqlNum=categoryMapper.updateCategory(c);
+			sqlSession=MyBatisUtil.createSqlSession();
+			int sqlNum=sqlSession.getMapper(CategoryMapper.class).updateCategory(c);
 			if(sqlNum>0){
 				flag=true;
 			}
+			sqlSession.commit();
 		} catch (Exception e) {
 			log.error(e);
-		} 
+			sqlSession.rollback();
+		} finally {
+			MyBatisUtil.closeSqlSession(sqlSession);
+		}
 		return flag;
 	}
 	
@@ -72,10 +96,13 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category getCategoryById(int categoryId) {
 		Category c=null;
 		try {
-			c=categoryMapper.getCategoryById(categoryId);
+			sqlSession=MyBatisUtil.createSqlSession();
+			c=sqlSession.getMapper(CategoryMapper.class).getCategoryById(categoryId);
 			//FIXME 
 		} catch (Exception e) {
 			log.error(e);
+		} finally {
+			MyBatisUtil.closeSqlSession(sqlSession);
 		}
 		return c;
 	}
@@ -83,9 +110,13 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	public List<Category> getListCategoryByLevel(int level) {
 		try {
+			//sqlSession=MyBatisUtil.createSqlSession();
+			//categories=sqlSession.getMapper(CategoryMapper.class).getListCategoryByLevel(level);
 			categories=categoryMapper.getListCategoryByLevel(level);
 		} catch (Exception e) {
 			log.error(e);
+		} finally {
+			//MyBatisUtil.closeSqlSession(sqlSession);
 		}
 		return categories;
 	}
@@ -98,6 +129,8 @@ public class CategoryServiceImpl implements CategoryService {
 		c.setParentId(1);
 		boolean flag=this.addCategory(c);
 		System.out.println(flag);
+		
+
 	}
 	
 

@@ -24,21 +24,21 @@
   		p:username="${jdbc.username}"
   		p:password="${jdbc.password}">
   	<!-- 1、配置driver驱动 -->
-  	<!-- <property name="driverClassName" value="${jdbc.driver}"/> -->
+  	<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
   	<!-- 2、配置url -->
-  	<!-- <property name="url" value="${jdbc.url}" /> -->
+  	<!-- <property name="url" value="jdbc:mysql://localhost:3306/yscx?useUnicode=true&amp;characterEncoding=utf-8" /> -->
   	<!-- 3、配置username -->
-  	<!-- <property name="username" value="${jdbc.username}" /> -->
+  	<!-- <property name="username" value="root" /> -->
   	<!-- 4、配置password -->
-  	<!-- <property name="password" value="${jdbc.password}"></property> -->
+  	<!-- <property name="password" value="123456"></property> -->
   </bean>
   
   <!-- 二、Mybatis配置SqlSessionFactory对象 -->
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
-  		p:dataSource-ref="dataSource"
-	  	p:configLocation="classpath:mybatis-config.xml"
-	  	p:mapperLocations="classpath:com/yscxsss/dao/user/*.xml,com/yscxsss/dao/category/*.xml"
-	  	p:typeAliasesPackage="com.yscxsss.entity">
+  	p:dataSource-ref="dataSource"
+  	p:configLocation="classpath:mybatis-config.xml"
+  	p:mapperLocations="classpath:com/yscxsss/dao/user/*.xml"
+  	p:typeAliasesPackage="com.yscxsss.entity">
   	<!-- 1、引用数据源 -->
   	<!-- <property name="dataSource" ref="dataSource" /> -->
   	<!-- 2、引用mybatis配置文件 -->
@@ -46,8 +46,7 @@
   	<!-- 3、引用Mapper.xml映射文件 -->
   	<!-- <property name="mapperLocations">
   		<list>
-  			<value>classpath:com/yscxsss/dao/user/*.xml</value>
-  			<value>classpath:com/yscxsss/dao/category/*.xml</value>
+  			<value>classpath:com/yscxsss/dao/*/*.xml</value>
   		</list>
   	</property> -->
   	<!-- 4、为所有实体类配置别名 -->
@@ -62,10 +61,10 @@
   <!-- <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> -->
   	<!-- 生成Mapper实现类需要注入这个Mapper的接口全名 -->
   	<!-- <property name="mapperInterface" value="com.yscxsss.dao.user.UserMapper" /> -->
-  	<!-- 生成Mapper实现类后，需要注入sqlSessionFactory，因为这样该Mapper实现类才具备执行sql语句的能力
-  	通常想要注入都需要getter\setter方法，不过这里的UserMapper不必写 sqlSessionFactory个getter/setter方法，底层应该已经封装好了 -->
-  	<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-  </bean>  --> 
+  	<!-- 生成Mapper实现类后，需要注入sqlSessionFactory，因为这样该Mapper实现类才具备执行sql语句的能力 -->
+  	<!-- 通常想要注入都需要getter\setter方法，不过这里的UserMapper不必写 sqlSessionFactory个getter/setter方法，底层应该已经封装好了-->
+  	<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory" /> -->
+  <!-- </bean> -->  
   
   <!-- 方式二：配置Mapper实现类 -->
   <!--MapperScannerConfigurer将递归扫描包中的所有Mapper接口，如果这些Mapper接口在Mapper.xml中定义过
@@ -73,8 +72,7 @@
   <!-- 通过扫描方式生成Mapper接口实现类，且该方法的底层实际上注入了SqlSessionFactory实例 -->
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"   
   		p:sqlSessionFactoryBeanName="sqlSessionFactory"
-  		p:basePackage="com.yscxsss.dao.user,com.yscxsss.dao.category">
-  		
+  		p:basePackage="com.yscxsss.dao.user">
   	<!-- 注入sqlSessionFactory后，底层会注入sqlSession对象，所以service中的mapper接口才可以执行sql语句 -->
   		
   	<!-- p:sqlSessionFactoryBeanName="sqlSessionFactory"此句可以不写，安全起见，可以写一下， -->
@@ -89,21 +87,22 @@
 	          
 	          解决办法： 改动MapperScannerConfigurer的配置,添加sqlSessionFactoryBeanName进行延迟注入
 	          写了该项的话可以起到延迟注入的效果，这样表达式的值来得及替换
-	          不写该项的话必须保证SqlSessionFactoryBean的名称是sqlSessionFactory -->	          		
+	          不写该项的话必须保证SqlSessionFactoryBean的名称是sqlSessionFactory -->
+	          		
   		
   	<!-- 此处的value是dao层的包名，而非类名 -->
-  	<!-- <property name="basePackage" value="com.yscxsss.dao.user" /> -->
+  	<!-- <property name="basePackage" value="com.yscxsss.dao.*" /> -->
   </bean>
-  
   
   <!-- 四、Spring配置开启扫描 -->
   <!-- 1、开启扫描<context:annotation-config/> -->
-  <context:component-scan base-package="com.yscxsss.*,com.yscxsss.service.*" />  
-  <!-- 2、开启对@AspectJ的支持，否则面向切面AOP的各种注解无法执行 -->
+  <context:component-scan base-package="com.yscxsss.*" />  
+  <!-- 2、开启对@AspectJ的支持，否则面向切面的各种注解无法执行 -->
   <aop:aspectj-autoproxy />
   
-  <!-- 3、开启事务注解驱动 -->
+  <!-- 3、开启事务注解 -->
   <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+  
   
   <!-- 五、Spring事务管理 -->
   <!-- 配置DataSourceTransactionManager时，需要注入数据源 -->
@@ -116,9 +115,9 @@
   		<!-- 为查询方法设定事务增强,read-only=true提高事务处理性能,read-only默认值false -->
   		<tx:method name="get*" read-only="true"/>
   		<!-- 当抛出异常时，进行回滚。配置回滚，需要写异常类全名 -->
-  		<tx:method name="add*" rollback-for="java.lang.RuntimeException"/>
-  		<tx:method name="delete*" rollback-for="java.lang.RuntimeException"/>
-  		<tx:method name="update*" rollback-for="java.lang.RuntimeException"/>
+  		<tx:method name="add*" rollback-for="java.lang.Exception"/>
+  		<tx:method name="delete*" rollback-for="java.lang.Exception"/>
+  		<tx:method name="update*" rollback-for="java.lang.Exception"/>
   		
   		<!-- 针对所有的方法进行事务增强，propagation默认值为Required -->
   		<tx:method name="*" propagation="REQUIRED"/>
@@ -129,7 +128,7 @@
   	<!-- 定义切入点 -->
   	<aop:pointcut id="serviceMethod" expression="execution(* com.yscxsss.service..*.*(..))" />
   	<!-- 将事务增强与切入点组合 -->
-  	<aop:advisor advice-ref="transactionManager" pointcut-ref="serviceMethod" />
+  	<aop:advisor advice-ref="transactionManager"/>
   </aop:config>
   
   

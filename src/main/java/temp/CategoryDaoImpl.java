@@ -2,7 +2,6 @@ package temp;
 
 import com.yscxsss.dao.category.CategoryMapper;
 import com.yscxsss.entity.Category;
-import com.yscxsss.util.MyBatisUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +23,10 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
 	private SqlSession sqlSession=null;
 	private Object obj=null;
 	
-	public List<Category> getCategoriesByLevel(int level) {
+	public List<Category> getListCategoryByLevel(int level) {
 		try {
 			sqlSession=MyBatisUtil.createSqlSession();
-			list=sqlSession.getMapper(CategoryMapper.class).getCategoriesByLevel(level);
+			list=sqlSession.getMapper(CategoryMapper.class).getListCategoryByLevel(level);
 		} catch (Exception e) {
 			log.error(e);
 		} finally {

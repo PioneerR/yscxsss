@@ -46,5 +46,5 @@ public interface CategoryMapper {
 	 * @param level
 	 * @return
 	 */
-	public List<Category> getCategoriesByLevel(@Param("level")Integer level);
+	public List<Category> getListCategoryByLevel(@Param("level")Integer level);
 }

@@ -38,7 +38,7 @@ public interface CategoryDao {
 	 * @param level
 	 * @return
 	 */
-	public List<Category> getCategoriesByLevel(int level);
+	public List<Category> getListCategoryByLevel(int level);
 	
 
 	

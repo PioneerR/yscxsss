@@ -1,7 +1,5 @@
 package temp;
 
-import com.yscxsss.util.MyBatisUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
