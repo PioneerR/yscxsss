@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
@@ -22,16 +23,15 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired(required=false)	
 	private CategoryMapper categoryMapper;
 	
+	@Transactional
 	public boolean addCategory(Category c) {
 		try {			
 			int sqlNum=categoryMapper.addCategory(c);
-			int i=1/0;
 			if(sqlNum>0){
 				flag=true;
 			}			
 		} catch (Exception e) {
 			log.error(e);
-			//throw e;
 		} 
 		return flag;
 	}

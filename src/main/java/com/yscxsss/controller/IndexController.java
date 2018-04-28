@@ -11,7 +11,7 @@ public class IndexController{
 	private Logger log=Logger.getLogger(IndexController.class);
 	
 	@RequestMapping("/toindex")
-	public ModelAndView toindex(){		
+	public ModelAndView toindex(){	
 		ModelAndView modelAndView=new ModelAndView();
 		modelAndView.addObject("SpringMvc");
 		modelAndView.setViewName("index");	

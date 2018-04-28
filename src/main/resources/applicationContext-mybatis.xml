@@ -97,40 +97,39 @@
   
   
   <!-- 四、Spring配置开启扫描 -->
-  <!-- 1、开启扫描<context:annotation-config/> -->
+  <!-- 1、开启IOC扫描，同时开启扫描<context:annotation-config/> -->
   <context:component-scan base-package="com.yscxsss.*,com.yscxsss.service.*" />  
-  <!-- 2、开启对@AspectJ的支持，否则面向切面AOP的各种注解无法执行 -->
-  <aop:aspectj-autoproxy />
-  
+  <!-- 2、开启对AOP注解驱动 -->
+  <aop:aspectj-autoproxy />  
   <!-- 3、开启事务注解驱动 -->
-  <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+  <tx:annotation-driven transaction-manager="txManager"/>
   
   <!-- 五、Spring事务管理 -->
   <!-- 配置DataSourceTransactionManager时，需要注入数据源 -->
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
   	p:dataSource-ref="dataSource">  
   </bean>  
   <!-- 通过tx:advice配置事务增强，为不同的业务方法指定具体的事务规则 -->
-  <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-  	<tx:attributes>
+  <!-- <tx:advice id="txAdvice" transaction-manager="txManager">
+  	<tx:attributes> -->
   		<!-- 为查询方法设定事务增强,read-only=true提高事务处理性能,read-only默认值false -->
-  		<tx:method name="get*" read-only="true"/>
-  		<!-- 当抛出异常时，进行回滚。配置回滚，需要写异常类全名 -->
-  		<tx:method name="add*" rollback-for="java.lang.RuntimeException"/>
+  		<!-- <tx:method name="get*" read-only="true"/> -->
+  		<!-- 当抛出异常时，进行回滚。配置回滚，需要写异常类全名,以下三句可以不写，用*代替 -->
+  		<!-- <tx:method name="add*" rollback-for="java.lang.RuntimeException"/>
   		<tx:method name="delete*" rollback-for="java.lang.RuntimeException"/>
-  		<tx:method name="update*" rollback-for="java.lang.RuntimeException"/>
+  		<tx:method name="update*" rollback-for="java.lang.RuntimeException"/> -->
   		
   		<!-- 针对所有的方法进行事务增强，propagation默认值为Required -->
-  		<tx:method name="*" propagation="REQUIRED"/>
+  		<!-- <tx:method name="*" propagation="REQUIRED"/>
   	</tx:attributes>
-  </tx:advice>
+  </tx:advice> -->
   <!-- 定义事务管理的AOP切面 -->
-  <aop:config>
+  <!-- <aop:config> -->
   	<!-- 定义切入点 -->
-  	<aop:pointcut id="serviceMethod" expression="execution(* com.yscxsss.service..*.*(..))" />
+  	<!-- <aop:pointcut id="serviceMethod" expression="execution(* com.yscxsss.service..*.*(..))" /> -->
   	<!-- 将事务增强与切入点组合 -->
-  	<aop:advisor advice-ref="transactionManager" pointcut-ref="serviceMethod" />
-  </aop:config>
+  	<!-- <aop:advisor advice-ref="txManager" pointcut-ref="serviceMethod" />
+  </aop:config> -->
   
   
 </beans> 

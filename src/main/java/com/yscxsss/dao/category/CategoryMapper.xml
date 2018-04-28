@@ -6,11 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.yscxsss.dao.category.CategoryMapper">
 	<!-- 1、增加  -->
 	<insert id="addCategory" parameterType="Category" >
-		insert into category2 (`pid`,`name`,`descr`,`cno`,`grade`,`cid`) 
-		values(#{parentId},#{categoryName},#{describe},#{categoryNo},#{level},0)	
-		insert into category (<include refid="key" />) values (<include refid="value" />)
+		insert into category (`parentId`,`name`,`describe`,`level`)
+		values(#{parentId},#{name},#{describe},#{level})	
+		<!-- insert into category (<include refid="key" />) values (<include refid="value" />) -->
 	</insert>
-	<sql id="key">
+	<!-- <sql id="key">
 		<trim suffixOverrides=",">
 			<if test="parentId!=null">pid,</if>
 			<if test="categoryName!=null">name,</if>
@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="level!=null">#{level},</if>
 			<if test="0!=null">0,</if>
 		</trim>
-	</sql>
+	</sql> -->
 	
 	
 	<!-- 2、删除  -->
