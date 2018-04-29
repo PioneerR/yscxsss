@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
 
@@ -27,6 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public boolean addCategory(Category c) {
 		try {			
 			int sqlNum=categoryMapper.addCategory(c);
+			int i=1/0;
 			if(sqlNum>0){
 				flag=true;
 			}			
@@ -61,14 +63,14 @@ public class CategoryServiceImpl implements CategoryService {
 		return flag;
 	}
 	
-	
+	@Transactional(readOnly=true)
 	public List<Category> getAllCategories() {
 		//TODO 
 
 		return categories;
 	}
 
-	
+	@Transactional(readOnly=true)
 	public Category getCategoryById(int categoryId) {
 		Category c=null;
 		try {
@@ -80,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return c;
 	}
 	
-	
+	@Transactional(readOnly=true)
 	public List<Category> getListCategoryByLevel(int level) {
 		try {
 			categories=categoryMapper.getListCategoryByLevel(level);

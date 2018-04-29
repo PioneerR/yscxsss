@@ -220,7 +220,6 @@
           <includes>
               <include>log4j.properties</include>
               <include>applicationContext-mybatis.xml</include>
-              <!-- <include>applicationContext.xml</include> -->
               <include>springmvc-servlet.xml</include>
               <include>mybatis-config.xml</include>
               <include>database.properties</include>
