@@ -144,9 +144,9 @@
 		//TODO 非空判断categories不能为null
     	Category c=categories.get(0);
     	Category cg=categories.get(categories.size()-1);
-    	for(Category css:categories){
+    	/* for(Category css:categories){
     		out.print("----"+css.getName());
-    	} 
+    	} */ 
     %>
 	
      <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
