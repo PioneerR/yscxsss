@@ -124,13 +124,7 @@
     	}
     </script>
   </head>  
-  <body> 
-	  <%
-	  		//ApplicationContext context=new FileSystemXmlApplicationContext("src/main/resources/applicationContext.xml");
-	  		
-	  %>
-
-     
+  <body>
     <%
     	//CategoryService cs=new CategoryServiceImpl();用以下工厂模式，降低耦合性
     	//CategoryService cs=CategoryServiceFactory.getInstance();
@@ -168,18 +162,18 @@
 							</div>
 						</a>						
 					
-					<%-- <c:forEach var="category" items="${requestScope.categories}" 
+					<c:forEach var="category" items="${requestScope.categories}" 
 									begin="1" end="${requestScope.categories.size()-2}" >		
 						<a href="showProducts.jsp?categoryId=<c:out value='${category.categoryId}'/>">
 							<div class="item backgw textc fonts16 colgy" style="line-height:37px;">
 								<c:out value="${category.categoryName}"/>
 							</div>
 						</a>
-					</c:forEach> --%>
+					</c:forEach>
 					
 						<a href="showProducts.jsp?categoryId=<c:out value='${cg.categoryId}'/>" >
 							<div class="item backgw borrb5 textc fonts16 colgy" style="line-height:37px;">
-								<!--<c:out value='${cg.categoryId}'/>-->
+								<!--<c:out value='${cg.categoryId}'/> -->
 								<%= cg.getName() %>
 							</div>
 						</a>	
