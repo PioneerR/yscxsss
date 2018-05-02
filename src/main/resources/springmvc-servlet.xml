@@ -13,7 +13,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">  
 	
-	<!-- 加载静态资源，且位置必须放在最前面，即放在其他配置之前 -->
+	<!-- 方案一:在web.xml中配置defaultServlet的servletMapping -->
+	<!-- 方案二:加载静态资源，且位置必须放在最前面，即放在其他配置之前，方案二更方便快捷 -->
 	<mvc:resources location="/js/" mapping="/js/**"/> 
 	<mvc:resources location="/images/" mapping="/images/**"/>  
 	<mvc:resources location="/css/" mapping="/css/**"/>

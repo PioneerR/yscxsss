@@ -14,7 +14,7 @@
   <!-- 说明：以下配置，统一采用p命名空间进行配置，因为key是自动提示的不容易出错，且简化代码量  -->
   
   <!-- 零、引入database.properties -->
-  <context:property-placeholder location="database.properties"/>
+  <context:property-placeholder location="classpath:database.properties"/>
   
   <!-- 一、Mybatis配置dbcp数据源,此前用的POOLED与JNDI -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
