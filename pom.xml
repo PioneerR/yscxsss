@@ -218,7 +218,21 @@
 	    <groupId>javax.activation</groupId>  
 	    <artifactId>activation</artifactId>  
 	    <version>1.1.1</version>  
-	</dependency> 
+	</dependency>
+	<dependency>
+	   <groupId>redis.clients</groupId>
+	   <artifactId>jedis</artifactId>
+	   <version>2.0.0</version>
+	   <type>jar</type>
+	   <scope>compile</scope>
+	  </dependency>
+	  <!-- memcache -->  
+      <!-- <dependency>  
+        <groupId>com.whalin</groupId>  
+        <artifactId>Memcached-Java-Client</artifactId>  
+        <version>3.0.0</version>  
+      </dependency> -->
+        
   </dependencies>
   
   <!-- 构建项目需要的信息 --> 
