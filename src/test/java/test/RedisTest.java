@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -16,7 +18,8 @@ public class RedisTest {
 		//test1();
 		//test2();
 		//test3();
-		test4();
+		//test4();
+		test5();
 	}
 	
 	//test1：String
@@ -82,6 +85,26 @@ public class RedisTest {
         // 释放连接池
         jedisPool.destroy();
 	}
+	
+	//test5:spring配置JedisPool与JedisPoolConfig
+	public static void test5() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");	
+		JedisPool jedisPool=(JedisPool)context.getBean("jedisPool");
+		
+		Jedis jedis = jedisPool.getResource();
+        // 设置数据
+        jedis.set("user","王五");
+        // 获取数据
+        String value = jedis.get("user");
+        System.out.println(value);
+        // 释放资源
+        jedis.disconnect();
+        // 释放连接池
+        jedisPool.destroy();
+
+	}
+	
+	
 	
 	
 
