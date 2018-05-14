@@ -1,14 +1,17 @@
+<%@page import="com.yscxsss.util.EmptyUtils"%>
+<%@page import="com.yscxsss.pojo.Category"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
-<%@ page import="org.springframework.context.ApplicationContext"%>
-<%@ page import="org.springframework.context.support.FileSystemXmlApplicationContext"%>
-<%@ page import="org.springframework.beans.factory.annotation.Autowired"%>
-<%@ page import="temp.CategoryServiceFactory"%>
-<%@ page import="com.yscxsss.service.category.CategoryServiceImpl"%>
-<%@ page import="com.yscxsss.service.category.CategoryService"%>
-<%@ page import="com.yscxsss.entity.Category"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%
+	List<Category> list=(ArrayList)request.getAttribute("categories");
+	if(EmptyUtils.isEmpty(list)){
+		response.sendRedirect(request.getContextPath()+"/pre/index");
+		//词句不写，那么页面依然会渲染，会报错。
+		return;
+	}
+%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
@@ -125,23 +128,6 @@
     </script>
   </head>  
   <body>
-    <%
-    	//CategoryService cs=new CategoryServiceImpl();用以下工厂模式，降低耦合性
-    	//CategoryService cs=CategoryServiceFactory.getInstance();
-    	
-    	ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
-    	CategoryService cs=(CategoryService)context.getBean("categoryService");
-    	
-    	List<Category> categories=cs.getListCategoryByLevel(2);//---------取出的类别必须是二级的类目，此处需要修改
-    	//以下句子极其重要，否则无法取到categories极其长度
-    	request.setAttribute("categories", categories);
-		//TODO 非空判断categories不能为null
-    	Category c=categories.get(0);
-    	Category cg=categories.get(categories.size()-1);
-    	/* for(Category css:categories){
-    		out.print("----"+css.getName());
-    	} */ 
-    %>
 	
      <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 			<nav style="" class="overfh">
@@ -155,26 +141,24 @@
 					<a href="showProducts.jsp" class="" style="color:#fff;">课程</a>
 					<div class="itemhide" style="margin-left:18%;width:150px;padding-bottom:5px;">
 			
-						<a href="showProducts.jsp?categoryId=<c:out value='${c.categoryId}'/>">
+						<a href="showProducts.jsp?categoryId=<c:out value='${c.id}'/>">
 							<div class="item backgw borrt5 textc fonts16 colgy" style="line-height:37px;">								
-								<!--<c:out value="${c.categoryName}"/>-->
-								<%= c.getName() %>
+								<c:out value="${c.name}"/>
 							</div>
 						</a>						
 					
-					<c:forEach var="category" items="${requestScope.categories}" 
-									begin="1" end="${requestScope.categories.size()-2}" >		
-						<a href="showProducts.jsp?categoryId=<c:out value='${category.categoryId}'/>">
+					<c:forEach var="category" items="${categories}" 
+									begin="1" end="${categories.size()-2}" >		
+						<a href="showProducts.jsp?categoryId=<c:out value='${category.id}'/>">
 							<div class="item backgw textc fonts16 colgy" style="line-height:37px;">
-								<c:out value="${category.categoryName}"/>
+								<c:out value="${category.name}"/>
 							</div>
 						</a>
 					</c:forEach>
 					
-						<a href="showProducts.jsp?categoryId=<c:out value='${cg.categoryId}'/>" >
+						<a href="showProducts.jsp?categoryId=<c:out value='${cg.id}'/>" >
 							<div class="item backgw borrb5 textc fonts16 colgy" style="line-height:37px;">
-								<!--<c:out value='${cg.categoryId}'/> -->
-								<%= cg.getName() %>
+								<c:out value='${cg.name}'/>
 							</div>
 						</a>	
 					</div>

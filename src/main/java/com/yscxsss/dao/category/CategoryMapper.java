@@ -1,6 +1,6 @@
 package com.yscxsss.dao.category;
 
-import com.yscxsss.entity.Category;
+import com.yscxsss.pojo.Category;
 
 import java.sql.SQLException;
 import java.util.List;

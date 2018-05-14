@@ -1,6 +1,6 @@
 package test;
 
-import com.yscxsss.entity.Category;
+import com.yscxsss.pojo.Category;
 import com.yscxsss.service.category.CategoryService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

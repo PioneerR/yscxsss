@@ -1,4 +1,4 @@
-package com.yscxsss.entity;
+package com.yscxsss.pojo;
 
 
 import java.util.Date;

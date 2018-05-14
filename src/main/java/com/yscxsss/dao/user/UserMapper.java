@@ -1,6 +1,6 @@
 package com.yscxsss.dao.user;
 
-import com.yscxsss.entity.User;
+import com.yscxsss.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {

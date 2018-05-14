@@ -1,6 +1,6 @@
 package com.yscxsss.service.user;
 import com.yscxsss.dao.user.UserMapper;
-import com.yscxsss.entity.User;
+import com.yscxsss.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

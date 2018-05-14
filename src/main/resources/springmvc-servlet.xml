@@ -34,6 +34,14 @@
 		<!-- 解析视图字串时添加后缀 -->
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- 3、配置拦截器 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/sys/**"/>
+			<bean ></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
 
 
 </beans>

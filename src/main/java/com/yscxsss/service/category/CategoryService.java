@@ -1,6 +1,6 @@
 package com.yscxsss.service.category;
 
-import com.yscxsss.entity.Category;
+import com.yscxsss.pojo.Category;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package temp;
 
 import com.yscxsss.dao.category.CategoryMapper;
-import com.yscxsss.entity.Category;
+import com.yscxsss.pojo.Category;
 
 import java.util.ArrayList;
 import java.util.List;

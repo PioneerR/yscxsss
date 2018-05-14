@@ -1,4 +1,4 @@
-package com.yscxsss.entity;
+package com.yscxsss.pojo;
 
 import org.springframework.stereotype.Component;
 
