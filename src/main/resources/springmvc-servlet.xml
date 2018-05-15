@@ -15,16 +15,14 @@
 	
 	<!-- 方案一:在web.xml中配置defaultServlet的servletMapping -->
 	<!-- 方案二:加载静态资源，且位置必须放在最前面，即放在其他配置之前，方案二更方便快捷 -->
-	<mvc:resources location="/js/" mapping="/js/**"/> 
-	<mvc:resources location="/images/" mapping="/images/**"/>  
-	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/statics/" mapping="/statics/**"/>
 	
 	<!-- 1、配置url与controller之间的映射 -->
 	<!-- <bean name="/index" class="com.yscxsss.controller.IndexController"></bean> -->
 	<!-- 1.1、启动mvc的注解驱动 -->
 	<mvc:annotation-driven />
 	<!-- 注解扫描@Controller，使其实例化 -->
-	<context:component-scan base-package="com.yscxsss.controller"/>
+	<context:component-scan base-package="com.yscxsss.controller.pre"/>
 	
 	
 	<!-- 2、配置视图解析器 -->

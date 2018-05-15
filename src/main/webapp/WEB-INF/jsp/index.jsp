@@ -23,11 +23,11 @@
   <head>    
     <title>艺术创想</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="shortcut icon" href="${ctx}/images/icon/yscx.ico" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="${ctx}/css/base.css" />
+    <link rel="shortcut icon" href="${ctx}/statics/images/icon/yscx.ico" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="${ctx}/statics/css/base.css" />
     <style type="text/css">
 		.header{
-		background:url("${ctx}/images/background/background.jpg") no-repeat;
+		background:url("${ctx}/statics/images/background/background.jpg") no-repeat;
 		background-position: 50% 40%;
 		background-size:cover;
 		position: absolute;
@@ -98,7 +98,7 @@
 					-10px 25px 15px #B5B4B4;
 		}
 		.section-bottom{
-		background:url("${ctx}/images/background/bottom.jpg")no-repeat;
+		background:url("${ctx}/statics/images/background/bottom.jpg")no-repeat;
 		background-size:cover;
 		background-position:50% 50%;
 		margin: 0px 50px 50px;
@@ -133,7 +133,7 @@
 			<nav style="" class="overfh">
 				<div class="flol" style="margin-right:20px;margin-left:7%;">
 					<a href="index.jsp" style="color:white;" class="fontw700">				
-						<img src="${ctx}/images/icon/yscx.png" class="wida" style="height:50px;">艺术创想
+						<img src="${ctx}/statics/images/icon/yscx.png" class="wida" style="height:50px;">艺术创想
 					</a>
 				</div>
 				
@@ -166,7 +166,7 @@
 				
 				<div class="itemshow flol wid100 textc" style="margin-top:17px;margin-left:45%; ">
 					<a href="buy.jsp" class="" style="color:#fff;">
-						<img src="${ctx}/images/background/cart2.png" class="wida" style="height:22px;">
+						<img src="${ctx}/statics/images/background/cart2.png" class="wida" style="height:22px;">
 					</a>
 					<div class="itemhide" style="width:150px;padding-bottom:5px; ">
 						<a href="buy.jsp">
@@ -180,21 +180,21 @@
 			<c:when test="${empty sessionScope.user}">
 				<div class="flol marlr15" style="margin-top:25px;" >
 					<a href="register.jsp" style="color:white;">
-						<img src="${ctx}/images/icon/signup.png" class="wida" style="height:20px;margin-right:5px;">注册
+						<img src="${ctx}/statics/images/icon/signup.png" class="wida" style="height:20px;margin-right:5px;">注册
 					</a>
 				</div>
 				<div class="flol marlr15" style="margin-top:25px;" >
-					<a href="userLogin.jsp?url=index" style="color:white;">
-						<img src="${ctx}/images/icon/signin.png" class="wida" style="height:20px;">登录
+					<a href="pre/login.jsp?url=index" style="color:white;">
+						<img src="${ctx}/statics/images/icon/signin.png" class="wida" style="height:20px;">登录
 					</a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="itemshow flol marlr15"  >
 					<a href="" style="color:white;">
-						<img src="${ctx}/images/user/${sessionScope.user.userId}+'.jpg'" class="wida" 
+						<img src="${ctx}/statics/images/user/${sessionScope.user.userId}+'.jpg'" class="wida" 
 							 style="height:30px;width:30px;margin-right:5px;margin-top:25px;margin-bottom:-8px; "
-							 onerror="javascript:this.src='${ctx}/images/icon/user.png'">
+							 onerror="javascript:this.src='${ctx}/statics/images/icon/user.png'">
 						${sessionScope.user.userName}
 					</a>
 					<div class="itemhide" style="width:150px;padding-bottom:5px;">
@@ -266,14 +266,14 @@
 		        </p>
 	        </div>
 			<div class="flol" style="width:35%;" >
-				<img src="${ctx}/images/background/11.jpg" style="width:100%;" class="borr15"/>
+				<img src="${ctx}/statics/images/background/11.jpg" style="width:100%;" class="borr15"/>
 	        </div>
 	    </div>
 
 
       <div  class="heia wida section-mid backgw" style="overflow:hidden;">
 		<div style="margin-left:12%;margin-right:9%;width:35%" class="heia flol">
-			<img src="${ctx}/images/background/22.jpg" class="widpc100 borr15" />
+			<img src="${ctx}/statics/images/background/22.jpg" class="widpc100 borr15" />
         </div>
         <div class="heia widpc30 flol colb" style="margin-top:70px; "> <!--块级宽度会影响排版-->
           <h3 style="margin:25px;" class="fonts30">学习游戏化</h3>
@@ -299,7 +299,7 @@
 		        </p>
 	        </div>
 			<div class="flol" style="width:35%">
-				<img src="${ctx}/images/background/33.jpg" class="borr15" style="width:100%;"/>
+				<img src="${ctx}/statics/images/background/33.jpg" class="borr15" style="width:100%;"/>
 	        </div>
 	      </div>
 

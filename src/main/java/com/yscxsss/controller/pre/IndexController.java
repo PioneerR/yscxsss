@@ -1,4 +1,4 @@
-package com.yscxsss.controller;
+package com.yscxsss.controller.pre;
 
 import com.yscxsss.pojo.Category;
 import com.yscxsss.service.category.CategoryService;
