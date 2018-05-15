@@ -18,7 +18,6 @@ public class User {
 	private int type;
 	private Date createTime;
 	
-	//getter setter
 	public int getId() {
 		return id;
 	}

@@ -40,6 +40,17 @@
 			<bean ></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> -->
+	
+	<!-- 4、配置全局异常处理 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 页面只要抛出RuntimeException异常，就会跳转到error.jsp页面显示错误信息 -->
+				<prop key="java.lang.RuntimeException">error</prop>
+			</props>
+		</property>
+	</bean>
+	
 
 
 </beans>
