@@ -1,12 +1,25 @@
 package com.yscxsss.controller.pre;
 
+import com.alibaba.fastjson.JSON;
+import com.yscxsss.pojo.Category;
+import com.yscxsss.pojo.User;
+import com.yscxsss.service.category.CategoryService;
+import com.yscxsss.service.user.UserService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -14,13 +27,63 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/user")
 public class UserController {
 	
+	private Logger log=Logger.getLogger(IndexController.class);
+	
+	@Resource
+	private CategoryService categoryService;
+	
+	@Resource
+	private UserService userService;
+	
 	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam String name,
-			@RequestParam String password,HttpSession session){
+	public ModelAndView login(){
 		
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("pre/login");
 		
+		List<Category> list=categoryService.getListCategoryByLevel(2);
+		modelAndView.addObject("categories", list);		
 		
-		return null;
+		//获取第一个类别，样式不同，单独取出
+		Category c=list.get(0);
+		modelAndView.addObject("c",c);
+		
+		//获取最后一个类别，样式不同，单独取出
+		Category cg=list.get(list.size()-2);
+		modelAndView.addObject("cg",cg);
+		
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping("/loginCheck")
+	@ResponseBody
+	public String loginCheck(@RequestParam String loginName,
+					@RequestParam String password,HttpSession session){
+		
+		Map map=new HashMap();
+		String info=null;
+		User user=userService.loginCheck(loginName, password);
+		if(user!=null){
+			session.setAttribute("user", user);
+			map.put("info", "success");
+			info=JSON.toJSONString(map);
+			System.out.println("用户上线了！");
+		}else{
+			map.put("info", "error");
+			info=JSON.toJSONString(map);
+		}
+		return info;
+	}
+	
+	@RequestMapping("/exit")
+	@ResponseBody
+	public String exit(HttpSession session){
+		String info="{info:'success'}";		
+		if((User)session.getAttribute("user")!=null){
+			session.removeAttribute("user");;
+		}
+		return info;
 	}
 	
 	//局部异常处理
@@ -29,6 +92,118 @@ public class UserController {
 		request.setAttribute("exception", e);
 		return "error";
 	}
+	
+	
+	/*<%
+	
+	if(action !=null && action.trim().equals("login"))
+	{
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		//User u=null;		
+		if(!username.equals("yscxadmin"))
+		{
+			try
+			{
+				u=User.check(username,password);
+			}
+			catch(UserNotFoundException e)
+			{
+				out.println("<div style='padding:10% 5% 5% 5%;box-shadow:0 0 10px #B5B4B4;border-radius:10px;width:80%;height:300px;margin-left:5%;margin-top:5%;'");
+				out.println("<div style=''>");
+				out.println("<h2 style='color:#03a9f4;text-align:center;padding:8%;'>"+e.getMessage()+"</h2>");
+				out.println("</div></div>");
+				return;
+			}
+			catch(PasswordNotCorrectException e1)
+			{
+				out.println("<div style='padding:10% 5% 5% 5%;box-shadow:0 0 10px #B5B4B4;border-radius:10px;width:80%;height:300px;margin-left:5%;margin-top:5%;'");
+				out.println("<div style=''>");
+				out.println("<h2 style='color:#03a9f4;text-align:center;padding:8%;'>"+e1.getMessage()+"</h2>");
+				out.println("</div></div>");
+				return;
+			}
+			session.setAttribute("user", u);
+			
+			//设置session时间为三个月           /////////////session+cookie实现自动登录暂缓+Index1.jsp
+			String sessiontime=request.getParameter("cookietime");
+			if(sessiontime!=null && sessiontime.equals("true"))//&&左边为假，右边不执行
+			{
+				session.setAttribute("username", username);
+				session.setAttribute("password", password);
+				HttpSession sess=request.getSession(true);//取消了session的持久化设置,sess实际上就是上面的session，只不过有了名字
+				sess.setMaxInactiveInterval(90*24*3600);//设置session的时间为三个月
+	System.out.println("create"+sess.getId());
+				
+				Cookie cookie=new Cookie("JSESSIONID",sess.getId());
+					   cookie.setMaxAge(90*24*3600); 
+				cookie.setDomain("C:/Users/Administrator/AppData/Local/Temp");
+				cookie.setPath("C:/Users/Administrator/AppData/Local/Temp");
+				response.addCookie(cookie);
+			}
+			
+			//设置cookie时间为三个月 
+			//只有用户页面写cookie，管理员页面需要输入密码
+			String cookietime=request.getParameter("cookietime");
+			if(cookietime!=null && cookietime.equals("true"))//&&左边为假，右边不执行
+			{
+				username=URLEncoder.encode(username);//对中文进行转码，cookie读取时只能读取英文
+				Cookie cookun=new Cookie("username",username);//密码和账号都要写到cookie内
+				Cookie cookpw=new Cookie("password",password);//由于cookie数组是存放在栈中，所以是先进后出，后进先出
+				cookun.setMaxAge(90*24*3600);//先存放的username，取出时的角标反而是靠后的
+				//cookun.setDomain("C:/Users/Administrator/AppData/Local/Temp");
+				cookun.setPath("/");//设置根目录下的页面都可以访问该cookie
+				cookpw.setMaxAge(90*24*3600);//后存放的password，取出时的角标反而靠前
+				//cookpw.setDomain("C:/Users/Administrator/AppData/Local/Temp");
+				cookpw.setPath("/");
+				//System.out.println(cookun.getValue()+"---"+cookpw.getValue());
+				response.addCookie(cookun);
+				response.addCookie(cookpw);
+			}
+			
+			if(url!=null && url.equals("index"))
+			{	
+				response.sendRedirect("/Gouwu/");
+%>
+			<script type="text/javascript">
+				window.history.go(1);//表单提交相当于又一次页面请求，所以是回到上一个页面的上一个页面.进入上一个缓存页面，读取缓存
+			</script>
+<%			
+			}
+			else
+			{
+%>
+			<script type="text/javascript">
+				window.history.go(-2);
+			</script>
+<%
+			}
+		}
+		else
+		{
+			if(!password.equals("123456"))
+			{
+				out.println("<div style='padding:10% 5% 5% 5%;box-shadow:0 0 10px #B5B4B4;border-radius:10px;width:80%;height:250px;margin-left:5%;margin-top:5%;'");
+				out.println("<div style=''>");
+				out.println("<h2 style='color:#ff9632;text-align:center;padding:0% 8%;'>");
+				out.println("<img src='${ctx}/statics/images/icon/yscx.png' style='width:200px;height:auto;'/>");
+				out.println("管理员密码输入错误~");
+				out.println("</h2></div></div>");
+				
+				out.println("<a href='javascript:window.history.go(-1)' style='text-decoration:none;");
+				out.println("background:#03a9f4;padding-bottom:5px;padding-top:5px;color:#fff;float:right;");
+				out.println("margin:2% 5% 5% 5%;padding-left:30px;padding-right:30px;text-align:center;border-radius:5px;'>");
+				out.println("返回</a>");
+				return;
+			}
+			session.setAttribute("yscxadmin", "admin");
+			//管理员获得权限别忘了写，因为后面的页面需要确认是否有管理员权限，会用到session
+			response.sendRedirect("admin/AdminIndex1.jsp");	
+		}
+	}	
+%>*/
+	
+	
 	
 	
 	

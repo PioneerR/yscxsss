@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
 
-	public int addUser(@Param("user")User user)throws SQLException;
+	public Integer addUser(@Param("user")User user)throws SQLException;
 
 	public int deleteUser(@Param("loginName")String loginName,
 			@Param("id")Integer id)throws SQLException;

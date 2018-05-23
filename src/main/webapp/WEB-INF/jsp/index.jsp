@@ -14,9 +14,9 @@
 %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     var contextPath = "${ctx}";
-</script> 
+</script> --> 
 
 <!DOCTYPE HTML>
 <html>
@@ -128,8 +128,9 @@
     </script>
   </head>  
   <body>
+		<%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 	
-     <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
+     <%-- <div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 			<nav style="" class="overfh">
 				<div class="flol" style="margin-right:20px;margin-left:7%;">
 					<a href="index.jsp" style="color:white;" class="fontw700">				
@@ -219,7 +220,7 @@
 		</c:choose>
 			
 			</nav>
-		</div>
+		</div> --%>
 		
 		<div class="widpc100 heipc100 header">
 	      <div class="widpc100 heipc100 header-filter">

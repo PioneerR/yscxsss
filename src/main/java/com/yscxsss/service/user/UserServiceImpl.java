@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired(required=false)
 	private UserMapper userMapper;	
+	
 	private Logger log=Logger.getLogger(UserServiceImpl.class);
 
 	@Override
