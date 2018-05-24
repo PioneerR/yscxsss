@@ -6,12 +6,16 @@ import com.yscxsss.pojo.User;
 import com.yscxsss.service.category.CategoryService;
 import com.yscxsss.service.user.UserService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -58,17 +62,54 @@ public class UserController {
 	
 	@RequestMapping("/loginCheck")
 	@ResponseBody
-	public String loginCheck(@RequestParam String loginName,
-					@RequestParam String password,HttpSession session){
+	public String loginCheck(@RequestParam String loginName,@RequestParam String cookieTime,
+					@RequestParam String password,HttpSession session,HttpServletResponse response){
 		
 		Map map=new HashMap();
 		String info=null;
 		User user=userService.loginCheck(loginName, password);
-		if(user!=null){
+		if(user!=null && user.getType()==0){
 			session.setAttribute("user", user);
-			map.put("info", "success");
+			
+			map.put("info", "userLogin");
 			info=JSON.toJSONString(map);
 			System.out.println("用户上线了！");
+			
+			//cookieTime为真，写入cookie
+			if(cookieTime.equals("true")){
+				//限制登录名为英文和数字等的组合，就不需要考虑转码的问题了
+				try {
+					//对中文进行转码，cookie读取时只能读取英文
+					loginName=URLEncoder.encode(loginName,"UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+					log.info("用户名转码出错");
+				}
+				
+				
+				//密码和账号都要写到cookie内
+				Cookie cookun=new Cookie("loginName",loginName);
+				//由于cookie数组是存放在栈中，所以是先进后出，后进先出
+				Cookie cookpw=new Cookie("password",password);
+				//先存放的username，取出时的角标反而是靠后的
+				cookun.setMaxAge(90*24*3600);
+				//cookun.setDomain("C:/Users/Administrator/AppData/Local/Temp");
+				//设置根目录下的页面都可以访问该cookie
+				cookun.setPath("/");
+				//后存放的password，取出时的角标反而靠前
+				cookpw.setMaxAge(90*24*3600);
+				//cookpw.setDomain("C:/Users/Administrator/AppData/Local/Temp");
+				cookpw.setPath("/");
+				//System.out.println(cookun.getValue()+"---"+cookpw.getValue());
+				response.addCookie(cookun);
+				response.addCookie(cookpw);
+				log.info("将用户名密码写入cookie");
+			}
+		}else if(user!=null && user.getType()==1){
+			session.setAttribute("yscxadmin", user);
+			map.put("info", "adminLogin");
+			info=JSON.toJSONString(map);
+			System.out.println("管理员上线了！");			
 		}else{
 			map.put("info", "error");
 			info=JSON.toJSONString(map);
@@ -78,10 +119,25 @@ public class UserController {
 	
 	@RequestMapping("/exit")
 	@ResponseBody
-	public String exit(HttpSession session){
-		String info="{info:'success'}";		
+	public String exit(HttpSession session,HttpServletRequest request,
+				HttpServletResponse response){
+		
+		String info="{'info':'success'}";
 		if((User)session.getAttribute("user")!=null){
-			session.removeAttribute("user");;
+			session.removeAttribute("user");
+			
+			//移除cookie
+			Cookie [] cookies=request.getCookies();
+			if(cookies!=null){
+				for(int i=0;i<cookies.length;i++){
+					//移除cookie
+					cookies[i].setMaxAge(0);
+					//cookies[i].setDomain("C:/Users/Administrator/AppData/Local/Temp");
+					cookies[i].setPath("/");
+					response.addCookie(cookies[i]);
+				}
+			}	
+			log.info("移除cookie成功");
 		}
 		return info;
 	}
@@ -136,49 +192,14 @@ public class UserController {
 	System.out.println("create"+sess.getId());
 				
 				Cookie cookie=new Cookie("JSESSIONID",sess.getId());
-					   cookie.setMaxAge(90*24*3600); 
+					   cookie.setMaxAge(90*24*3600);
 				cookie.setDomain("C:/Users/Administrator/AppData/Local/Temp");
 				cookie.setPath("C:/Users/Administrator/AppData/Local/Temp");
 				response.addCookie(cookie);
 			}
 			
-			//设置cookie时间为三个月 
-			//只有用户页面写cookie，管理员页面需要输入密码
-			String cookietime=request.getParameter("cookietime");
-			if(cookietime!=null && cookietime.equals("true"))//&&左边为假，右边不执行
-			{
-				username=URLEncoder.encode(username);//对中文进行转码，cookie读取时只能读取英文
-				Cookie cookun=new Cookie("username",username);//密码和账号都要写到cookie内
-				Cookie cookpw=new Cookie("password",password);//由于cookie数组是存放在栈中，所以是先进后出，后进先出
-				cookun.setMaxAge(90*24*3600);//先存放的username，取出时的角标反而是靠后的
-				//cookun.setDomain("C:/Users/Administrator/AppData/Local/Temp");
-				cookun.setPath("/");//设置根目录下的页面都可以访问该cookie
-				cookpw.setMaxAge(90*24*3600);//后存放的password，取出时的角标反而靠前
-				//cookpw.setDomain("C:/Users/Administrator/AppData/Local/Temp");
-				cookpw.setPath("/");
-				//System.out.println(cookun.getValue()+"---"+cookpw.getValue());
-				response.addCookie(cookun);
-				response.addCookie(cookpw);
-			}
 			
-			if(url!=null && url.equals("index"))
-			{	
-				response.sendRedirect("/Gouwu/");
-%>
-			<script type="text/javascript">
-				window.history.go(1);//表单提交相当于又一次页面请求，所以是回到上一个页面的上一个页面.进入上一个缓存页面，读取缓存
-			</script>
-<%			
-			}
-			else
-			{
-%>
-			<script type="text/javascript">
-				window.history.go(-2);
-			</script>
-<%
-			}
-		}
+
 		else
 		{
 			if(!password.equals("123456"))

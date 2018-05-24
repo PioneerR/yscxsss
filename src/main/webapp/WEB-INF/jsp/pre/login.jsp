@@ -77,7 +77,7 @@
 		          <div class="flol" style="letter-spacing:0em;padding-left:33px;margin-top:14px;">
 		          	<div class=" flol" style="margin-right:4px;">
 		          		<input type="checkbox" class="checkbox" id="sessiontime" name="cookietime" value="true" />
-		          		<label for="sessiontime"></label>	
+		          		<label for="sessiontime" id="cookie"></label>
 		          	</div>
 		          	<div class="textl fonts14 colgy flol" style="margin-left:2px;">
 		          		记住我
@@ -125,18 +125,27 @@
 	    	function loginCheck(){
 	    		var loginName=$("#loginName").val();
 	    		var password=$("#password").val();
+	    		
+	    		if($("#sessiontime").attr("checked")){
+	    			var cookieTime=true;	
+	    		}else{
+	    			var cookieTime=false;
+	    		}
 	    		$.ajax({
 	    			"url":"${ctx}/user/loginCheck",
 		    		"method":"post",
 		    		"data":{
 		    			"loginName":loginName,
-		    			"password":password
+		    			"password":password,
+		    			"cookieTime":cookieTime
 		    		},
 		    		"dataType":"json",
 		    		"success":function(data){
 		    			var obj=eval("(" + data + ")");
-		    			if(obj.info=="success"){
+		    			if(obj.info=="userLogin"){
 		    				window.location.href="${ctx}/pre/index";
+		    			}else if(obj.info=="adminLogin"){
+		    				window.location.href="${ctx}/backend/index";
 		    			}else{
 		    				$("#info").html("用户名或密码错误");
 		    			}		    			
