@@ -70,7 +70,7 @@ public class IndexController{
 					}
 				}
 				User user=userService.loginCheck(loginName, password);
-				if(user!=null){
+				if(user!=null && user.getType()==0){
 					session.setAttribute("user", user);
 					log.info("读取cookie成功，用户登录成功");
 				}

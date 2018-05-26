@@ -3,6 +3,7 @@ package com.yscxsss.controller.pre;
 import com.yscxsss.pojo.User;
 import com.yscxsss.service.category.CategoryService;
 import com.yscxsss.service.user.UserService;
+import com.yscxsss.util.EmptyUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -10,6 +11,7 @@ import java.net.URLDecoder;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -30,19 +32,7 @@ public class BackendController{
 	
 	@RequestMapping("/index")
 	public ModelAndView index(HttpServletRequest request,HttpSession session){	
-		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.setViewName("/backend/index");
-		
-		/*List<Category> list=categoryService.getListCategoryByLevel(2);
-		modelAndView.addObject("categories", list);		
-		
-		//获取第一个类别，样式不同，单独取出
-		Category c=list.get(0);
-		modelAndView.addObject("c",c);
-		
-		//获取最后一个类别，样式不同，单独取出
-		Category cg=list.get(list.size()-2);
-		modelAndView.addObject("cg",cg);*/
+		ModelAndView modelAndView=new ModelAndView();		
 		
 		User u=(User)session.getAttribute("user");
 		//读取cookie
@@ -67,13 +57,42 @@ public class BackendController{
 					}
 				}
 				User user=userService.loginCheck(loginName, password);
-				if(user!=null){
+				if(user!=null && user.getType()==1){
 					session.setAttribute("user", user);
 					log.info("读取cookie成功，管理员登录成功");
+					modelAndView.setViewName("/backend/index");
+				}else{
+					modelAndView.setViewName("/pre/login");
 				}
 			}
-		}		
+		}else{
+			modelAndView.setViewName("/backend/index");
+		}	
 		return modelAndView;
 	}
+	
+	@RequestMapping("/exit")
+	public String exit(HttpSession session,HttpServletRequest request,
+				HttpServletResponse response){
+		
+		User user=(User)session.getAttribute("user");
+		log.info(user.getLoginName()+"-----");
+		if(EmptyUtils.isNotEmpty(user)){
+			session.removeAttribute("user");
+			Cookie[] cookie=request.getCookies();
+			if(cookie.length>1){
+				for(Cookie c:cookie){
+					c.setMaxAge(0);
+					c.setPath("/");
+					response.addCookie(c);
+				}
+				log.info("移除cookie成功");
+			}
+		}		
+		return "redirect:/pre/index";
+	}
+	
+	
+	
 
 }

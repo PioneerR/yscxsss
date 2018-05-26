@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.net.InetAddress"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
@@ -55,7 +54,7 @@
   	</style>
   </head>
   <body>
-  	  <%@ include file="nav.jsp" %>
+  	  <%@ include file="../common/nav.jsp" %>
   
 	  <div class="heia wida " style="padding:8% 5% 5% 5%;">
 	   	<div class="boxs10 widpc100 borr10">
@@ -72,7 +71,7 @@
 	  	</div>
 	  </div>
 	  
-	  <%@ include file="../footer.html" %>
+	  <%@ include file="../common/footer.html" %>
   </body>
 </html>
 

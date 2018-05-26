@@ -329,6 +329,6 @@
 		    	style="margin-left:42%;color:#03a9f4;">马上开始绘画创作</a>
 	    </div> 
      
-    <%@ include file="footer.html" %>
+    <%@ include file="common/footer.html" %>
   </body>
 </html>

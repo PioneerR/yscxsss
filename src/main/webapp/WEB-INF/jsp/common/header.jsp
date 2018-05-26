@@ -80,7 +80,7 @@
 								个人信息
 							</div>
 						</a>
-						<a href="javascript:void(0)" onclick="exit()">
+						<a href="${ctx}/user/exit">
 							<div class="item borrb5 textc backgw colgy fonts16" style="line-height:37px;margin-right:10%;">
 								退出
 							</div>
@@ -93,7 +93,7 @@
 		</nav>
 	</div>
 	<script type="text/javascript" src="${ctx}/statics/js/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		function exit(){
 			$.ajax({
 				"url":"${ctx}/user/exit",
@@ -109,4 +109,4 @@
 				}				
 			});
 		}	
-	</script>
+	</script> -->

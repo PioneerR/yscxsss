@@ -16,15 +16,7 @@
 %> --%>
 
 
-<%-- <%
-	request.setCharacterEncoding("utf8");
-	String yscxadmin=(String)session.getAttribute("yscxadmin");
-	if(yscxadmin == null)
-	{
-		response.sendRedirect("/Gouwu/UserLogin1.jsp");
-		return;
-	}
-	
+<%-- <%	
 	String actions=request.getParameter("action");
 	if(actions !=null && actions.equals("exit"))
 	{
@@ -32,12 +24,6 @@
 		response.sendRedirect("/Gouwu/");
 		return;
 	}
-
-	//点击浏览器后退按钮时，不读取该页缓存，并自动刷新本页面
-	response.setHeader("Pragma","No-cache"); 		
-	response.setHeader("Cache-Control","no-cache"); 
-	response.setHeader("Cache-Control", "No-store");
-	response.setDateHeader("Expires", 0);
 %> --%>
 
 	<div class="widpc100 backgb" style="position:fixed;top:0;height:50px;
@@ -110,7 +96,7 @@
 		</div>
 	
 		<c:choose>
-			<c:when test="${empty yscxadmin}">
+			<c:when test="${empty user}">
 				<div class="flol marlr15" style="margin-top:25px;" >
 					<a href="/Gouwu/UserLogin1.jsp" style="color:white;">
 						<img src="${ctx}/statics/images/icon/signin.png" class="wida" style="height:20px;">登录
@@ -130,7 +116,7 @@
 								待处理预报名
 							</div>
 						</a>
-						<a href="/Gouwu/admin/AdminIndex1.jsp?action=exit">
+						<a href="${ctx}/backend/exit" >
 							<div class="item borrb5 textc backgw colgy fonts16" style="line-height:37px;margin-right:10%;">
 								退出
 							</div>
@@ -141,4 +127,5 @@
 		</c:choose>	
 	  </nav>
 	 </div>
-
+	
+	
