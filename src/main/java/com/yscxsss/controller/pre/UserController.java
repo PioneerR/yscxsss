@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +47,7 @@ public class UserController {
 		modelAndView.setViewName("pre/login");
 		
 		List<Category> list=categoryService.getListCategoryByLevel(2);
-		modelAndView.addObject("categories", list);		
+		modelAndView.addObject("categories", list);
 		
 		//获取第一个类别，样式不同，单独取出
 		Category c=list.get(0);
@@ -140,9 +141,20 @@ public class UserController {
 		return "redirect:/pre/index";
 	}
 	
+	@RequestMapping("/register")
+	@ResponseBody
+	public String register(@ModelAttribute User user){
+		
+		
+		
+		
+		return "";
+	}
+	
+	
 	//局部异常处理
 	@ExceptionHandler(value={RuntimeException.class})
-	public  String handlerException(RuntimeException e,HttpServletRequest request){
+	public String handlerException(RuntimeException e,HttpServletRequest request){
 		request.setAttribute("exception", e);
 		return "error";
 	}

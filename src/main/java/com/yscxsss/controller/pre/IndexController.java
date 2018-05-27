@@ -78,5 +78,24 @@ public class IndexController{
 		}		
 		return modelAndView;
 	}
+	
+	@RequestMapping("/register")
+	public ModelAndView toRegister(){
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("pre/register");
+		
+		List<Category> list=categoryService.getListCategoryByLevel(2);
+		modelAndView.addObject("categories", list);		
+		
+		//获取第一个类别，样式不同，单独取出
+		Category c=list.get(0);
+		modelAndView.addObject("c",c);
+		
+		//获取最后一个类别，样式不同，单独取出
+		Category cg=list.get(list.size()-2);
+		modelAndView.addObject("cg",cg);
+		
+		return modelAndView;
+	}
 
 }

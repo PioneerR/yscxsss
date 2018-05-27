@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 	<div class="widpc100" style="position:fixed;top:0;height:70px;" id="nav">
 		<nav style="" class="overfh">
 			<div class="flol" style="margin-right:20px;margin-left:7%;">
@@ -51,7 +50,7 @@
 		<c:choose>	
 			<c:when test="${empty sessionScope.user}">
 				<div class="flol marlr15" style="margin-top:25px;" >
-					<a href="register.jsp" style="color:white;">
+					<a href="../pre/register" style="color:white;">
 						<img src="${ctx}/statics/images/icon/signup.png" class="wida" style="height:20px;margin-right:5px;">注册
 					</a>
 				</div>
