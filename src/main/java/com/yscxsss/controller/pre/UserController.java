@@ -144,11 +144,15 @@ public class UserController {
 	@RequestMapping("/register")
 	@ResponseBody
 	public String register(@ModelAttribute User user){
-		
-		
-		
-		
-		return "";
+		Map map=new HashMap<String,Object>();
+		boolean flag=userService.addUser(user);
+		if(flag){
+			map.put("info", "success");
+		}else{
+			map.put("info", "error");
+		}
+		String info=JSON.toJSONString(map);		
+		return info;
 	}
 	
 	

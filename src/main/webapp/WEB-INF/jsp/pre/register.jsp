@@ -2,16 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%-- <%
-	request.setCharacterEncoding("utf8");//若该句不写，数据库的数据会是乱码,且该句必须放在第一行
-	List<Category> categories=CategoryService.getInstance().getCategoriesGradeTwo();
-	User u=(User)session.getAttribute("user");
-	
-	String action=request.getParameter("action");
-	if(action !=null && action.equals("exit"))
-	{
-		session.invalidate();
-		response.sendRedirect("/Gouwu/");
-	}
 
 	if(action!=null && action.equals("register"))
 	{
@@ -115,32 +105,6 @@
 		  z-index: -1;
 		}
     </style>
-    <!-- <script type="text/javascript">
-    	function al()
-    	{
-    		var username=document.getElementById("username");
-    		var password=document.getElementById("password");
-    		var password2=document.getElementById("password2");
-    		var phone=document.getElementById("phone");
-    		
-    		if(username.value==null))
-    		{
-    			alert("请填写用户名！")
-    		}
-    		else if(phone.value==null))
-    		{
-    			alert("请填写手机号码！")
-    		}
-    		else if(password.value==null))
-    		{
-    			alert("请填写登录密码！")
-    		}
-    		else if(password.value==null))
-    		{
-    			alert("请填写确认密码！")
-    		} 		    		
-    	}
-    </script> -->
   </head>
   <body>
   	<%@ include file="../common/header.jsp"  %>

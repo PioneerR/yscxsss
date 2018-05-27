@@ -122,9 +122,8 @@
 						</a>					
 					</div>
 				</div>
-			</c:otherwise>		
+			</c:otherwise>
 		</c:choose>	
 	  </nav>
 	 </div>
-	
 	
