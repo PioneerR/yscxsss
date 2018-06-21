@@ -142,7 +142,7 @@
         <version>1.3.0</version>  
     </dependency>
     
-    <!-- FIXME 一旦引入spring的包，并update项目，文件就无法改名，就无法删除 -->
+    <!-- FIXME 一旦引入spring的包，并update项目，文件就无法改名，就无法删除  -->
     <!-- 引入Spring依赖(包含SpringMVC) -->
     <dependency>  
 	    <groupId>org.springframework</groupId>  
